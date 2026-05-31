@@ -8,7 +8,12 @@
 :root{--bg:#f5f4f0;--surface:#fff;--sb:#1c2235;--sbt:#b8c0d0;--sba:#4f8ef7;--sbh:#252d42;--acc:#3b6fd4;--acc2:#d4603b;--text:#1a1a2e;--tl:#6b7280;--bdr:#e0ddd6;--nbg:#f0f4ff;--nbr:#c5d5f5;--ok:#16a34a;--ng:#dc2626;--am:#d97706;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;}
-#sidebar{width:250px;min-width:250px;background:var(--sb);color:var(--sbt);display:flex;flex-direction:column;overflow:hidden;}
+#sidebar{width:250px;min-width:250px;background:var(--sb);color:var(--sbt);display:flex;flex-direction:column;overflow:hidden;transition:width .2s,min-width .2s;}
+#sidebar.collapsed{width:0;min-width:0;}
+#sidebar.collapsed #sidebar-header,#sidebar.collapsed #nav-tree{opacity:0;pointer-events:none;}
+#toggle-sidebar{position:fixed;top:14px;left:258px;z-index:100;background:var(--acc);color:#fff;border:none;border-radius:50%;width:26px;height:26px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:left .2s;line-height:1;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+#sidebar.collapsed~* #toggle-sidebar,body.sb-collapsed #toggle-sidebar{left:8px;}
+body.sb-collapsed #toggle-sidebar{left:8px;}
 #sidebar-header{padding:18px 16px 12px;border-bottom:1px solid #2a3248;}
 #sidebar-header h1{font-size:14px;font-weight:700;color:#fff;}
 #sidebar-header p{font-size:11px;color:#6b7a99;margin-top:2px;}
@@ -136,6 +141,7 @@ body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:
   <div id="sidebar-header"><h1>📚 IELTS 오답노트</h1><p>Cambridge 16–20 · Reading</p></div>
   <div id="nav-tree"></div>
 </div>
+<button id="toggle-sidebar" onclick="toggleSidebar()" title="사이드바 닫기">‹</button>
 <div id="main">
   <div id="topbar"><h2 id="ptitle">패시지를 선택하세요</h2><span id="ptopic" class="topic-chip" style="display:none"></span></div>
   <div id="tabs">
@@ -1052,6 +1058,16 @@ const navTree = document.getElementById('nav-tree');
   navTree.appendChild(bg);
 });
 
+// ═══════════════════════ SIDEBAR TOGGLE ═══════════════════════
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const btn=document.getElementById('toggle-sidebar');
+  const collapsed=sb.classList.toggle('collapsed');
+  document.body.classList.toggle('sb-collapsed',collapsed);
+  btn.textContent=collapsed?'›':'‹';
+  btn.style.left=collapsed?'8px':'258px';
+  btn.title=collapsed?'사이드바 열기':'사이드바 닫기';
+}
 // ═══════════════════════ SELECT ═══════════════════════
 function selectPassage(key,el){
   document.querySelectorAll('.passage-item').forEach(i=>i.classList.remove('active'));
