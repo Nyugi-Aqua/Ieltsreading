@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Reading 오답노트 | Cambridge 16–20</title>
+<style>
+:root{--bg:#f5f4f0;--surface:#fff;--sb:#1c2235;--sbt:#b8c0d0;--sba:#4f8ef7;--sbh:#252d42;--acc:#3b6fd4;--acc2:#d4603b;--text:#1a1a2e;--tl:#6b7280;--bdr:#e0ddd6;--nbg:#f0f4ff;--nbr:#c5d5f5;--ok:#16a34a;--ng:#dc2626;--am:#d97706;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:var(--text);display:flex;height:100vh;overflow:hidden;}
+#sidebar{width:250px;min-width:250px;background:var(--sb);color:var(--sbt);display:flex;flex-direction:column;overflow:hidden;}
+#sidebar-header{padding:18px 16px 12px;border-bottom:1px solid #2a3248;}
+#sidebar-header h1{font-size:14px;font-weight:700;color:#fff;}
+#sidebar-header p{font-size:11px;color:#6b7a99;margin-top:2px;}
+#nav-tree{overflow-y:auto;flex:1;padding:6px 0;}
+.book-group{margin-bottom:2px;}
+.book-label{padding:6px 16px;font-size:11px;font-weight:700;color:#6b7a99;text-transform:uppercase;letter-spacing:.7px;cursor:pointer;display:flex;align-items:center;gap:5px;user-select:none;}
+.book-label:hover{color:#9aa5bb;}
+.book-label .arr{font-size:9px;transition:transform .2s;}
+.book-label.collapsed .arr{transform:rotate(-90deg);}
+.book-label.collapsed+.test-group{display:none;}
+.test-group{display:block;}
+.test-label{padding:5px 16px 5px 24px;font-size:12px;color:#7a8599;cursor:pointer;display:flex;align-items:center;gap:5px;user-select:none;}
+.test-label:hover{color:#b8c0d0;}
+.test-label .arr{font-size:9px;transition:transform .2s;}
+.test-label.collapsed .arr{transform:rotate(-90deg);}
+.test-label.collapsed+.passage-list{display:none;}
+.passage-list{display:block;}
+.passage-item{padding:5px 16px 5px 36px;font-size:12px;color:#6b7a99;cursor:pointer;border-left:2px solid transparent;transition:all .15s;display:flex;align-items:center;justify-content:space-between;}
+.passage-item:hover{background:var(--sbh);color:#b8c0d0;}
+.passage-item.active{background:#1a2e55;color:var(--sba);border-left-color:var(--sba);font-weight:600;}
+.p-badge{font-size:10px;background:#252d42;border-radius:8px;padding:1px 6px;color:#4a5568;}
+.passage-item.active .p-badge{background:#1e3a6e;color:#7ab3f7;}
+.passage-item.done::before{content:'●';color:var(--ok);font-size:8px;margin-right:5px;}
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+#topbar{background:var(--surface);border-bottom:1px solid var(--bdr);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+#topbar h2{font-size:15px;font-weight:700;flex:1;}
+.topic-chip{font-size:11px;background:#eef2ff;color:var(--acc);border-radius:16px;padding:3px 11px;font-weight:600;}
+#tabs{background:var(--surface);border-bottom:1px solid var(--bdr);padding:0 20px;display:flex;flex-shrink:0;}
+.tab-btn{padding:10px 16px;font-size:12px;font-weight:600;color:var(--tl);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
+.tab-btn:hover{color:var(--acc);}
+.tab-btn.active{color:var(--acc);border-bottom-color:var(--acc);}
+#content{flex:1;overflow-y:auto;padding:0;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+/* passage intro */
+.passage-intro{background:var(--surface);border-bottom:1px solid var(--bdr);padding:16px 28px;}
+.passage-intro h3{font-size:13px;font-weight:700;color:var(--tl);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px;}
+.passage-intro p{font-size:14px;font-weight:700;}
+.q-types{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.q-chip{font-size:11px;padding:2px 10px;border-radius:12px;background:#f3f4f6;color:var(--tl);font-weight:600;}
+/* para divider */
+.para-divider{display:flex;align-items:center;gap:10px;padding:18px 0 8px;margin:0 0 4px;}
+.para-divider-badge{background:var(--acc);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px;white-space:nowrap;}
+.para-divider-role{font-size:11px;font-weight:700;color:var(--tl);text-transform:uppercase;letter-spacing:.4px;}
+.para-divider-line{flex:1;height:1px;background:var(--bdr);}
+/* sentence block */
+.sentences-container{padding:0 28px 40px;}
+.sent-block{border-bottom:1px solid #ebe9e4;padding:18px 0 14px;}
+.sent-block:last-child{border-bottom:none;}
+.sent-num-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
+.sent-num{font-size:15px;font-weight:800;color:var(--acc);min-width:22px;line-height:1.5;flex-shrink:0;}
+.sent-en{font-size:14px;font-weight:700;line-height:1.8;color:#1a1a2e;flex:1;}
+.sent-kr{font-size:13px;line-height:1.8;color:#374151;padding-left:32px;margin-bottom:8px;}
+.grammar-note{margin:0 0 8px 32px;background:var(--nbg);border-left:3px solid var(--nbr);border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;line-height:1.7;color:#1e3a6e;}
+.grammar-note strong{color:var(--acc2);}
+.vocab-table{margin:0 0 0 32px;width:calc(100% - 32px);border-collapse:collapse;font-size:12.5px;}
+.vocab-table th{background:#f3f4f6;padding:4px 10px;text-align:left;font-size:11px;font-weight:700;color:var(--tl);letter-spacing:.3px;border-bottom:1px solid var(--bdr);}
+.vocab-table td{padding:5px 10px;border-bottom:1px solid #f0ede8;vertical-align:top;line-height:1.6;}
+.vocab-table tr:last-child td{border-bottom:none;}
+.vocab-table td:first-child{font-weight:700;color:#1a1a2e;white-space:nowrap;min-width:130px;}
+.vocab-table td:nth-child(2){color:var(--acc);font-weight:600;white-space:nowrap;min-width:55px;font-size:11px;}
+/* vocab all */
+.vocab-all-container{padding:20px 28px 40px;}
+.vocab-all-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;}
+.vcard{background:var(--surface);border:1px solid var(--bdr);border-radius:9px;padding:13px 15px;}
+.vcard-word{font-size:15px;font-weight:800;}
+.vcard-pos{font-size:10px;background:var(--acc);color:#fff;border-radius:9px;padding:1px 7px;margin-left:5px;font-weight:700;vertical-align:middle;}
+.vcard-pron{font-size:11px;color:var(--tl);margin-top:2px;}
+.vcard-kr{font-size:13px;margin-top:6px;line-height:1.6;}
+.vcard-ex{font-size:12px;color:var(--tl);font-style:italic;margin-top:5px;border-top:1px solid var(--bdr);padding-top:5px;line-height:1.6;}
+.vcard-ex em{color:var(--acc);font-style:normal;font-weight:700;}
+.vcard-syn{font-size:11px;color:var(--tl);margin-top:4px;}
+.vcard-syn span{background:#f3f4f6;border-radius:7px;padding:1px 6px;margin-right:3px;}
+/* tfng */
+.tfng-container{padding:20px 28px 40px;}
+.tfng-block{background:var(--surface);border:1px solid var(--bdr);border-radius:10px;padding:16px 18px;margin-bottom:12px;}
+.tfng-block.ans-TRUE{border-left:4px solid var(--ok);}
+.tfng-block.ans-FALSE{border-left:4px solid var(--ng);}
+.tfng-block.ans-NG{border-left:4px solid var(--am);}
+.tfng-block.ans-YES{border-left:4px solid var(--ok);}
+.tfng-block.ans-NO{border-left:4px solid var(--ng);}
+.tfng-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.q-circle{width:25px;height:25px;border-radius:50%;background:var(--sb);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.q-stmt{font-size:13.5px;font-weight:600;flex:1;line-height:1.6;}
+.ans-pill{font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px;white-space:nowrap;flex-shrink:0;}
+.pill-TRUE,.pill-YES{background:#dcfce7;color:#15803d;}
+.pill-FALSE,.pill-NO{background:#fee2e2;color:#b91c1c;}
+.pill-NG,.pill-NOT.GIVEN{background:#fef3c7;color:#b45309;}
+.pill-mine{background:#f3f4f6;color:#374151;}
+.result-row{display:flex;align-items:center;gap:5px;margin-bottom:8px;font-size:12px;font-weight:700;}
+.result-row.correct{color:var(--ok);}
+.result-row.wrong{color:var(--ng);}
+.ev-label,.why-label,.trap-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--tl);margin-bottom:4px;}
+.ev-box{background:#f0fdf4;border-left:3px solid var(--ok);border-radius:0 6px 6px 0;padding:8px 12px;font-size:13px;line-height:1.7;margin-bottom:8px;}
+.ev-box mark{background:#bbf7d0;color:#065f46;padding:0 2px;border-radius:2px;}
+.why-box{background:#fffbeb;border-left:3px solid var(--am);border-radius:0 6px 6px 0;padding:8px 12px;font-size:13px;line-height:1.7;color:#78350f;margin-bottom:6px;}
+.trap-box{background:#fff1f2;border-left:3px solid var(--ng);border-radius:0 6px 6px 0;padding:8px 12px;font-size:13px;line-height:1.7;}
+.trap-box strong{color:var(--ng);}
+/* summary */
+.summary-container{padding:20px 28px 40px;}
+.sum-card{background:var(--surface);border:1px solid var(--bdr);border-radius:10px;padding:16px 18px;margin-bottom:12px;}
+.sum-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--tl);margin-bottom:10px;}
+.sum-text{font-size:13px;line-height:1.8;}
+.smap-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-top:1px solid var(--bdr);}
+.smap-lbl{min-width:30px;height:30px;border-radius:6px;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.smap-role{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--tl);}
+.smap-desc{font-size:13px;line-height:1.7;margin-top:2px;}
+.smap-desc strong{color:var(--acc2);}
+/* legend */
+.legend-row{display:flex;gap:14px;flex-wrap:wrap;padding:8px 28px;background:var(--surface);border-bottom:1px solid var(--bdr);}
+.leg{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--tl);}
+.leg-dot{width:10px;height:3px;border-radius:2px;}
+/* empty */
+.empty{text-align:center;padding:70px 24px;color:var(--tl);}
+.empty .em{font-size:40px;margin-bottom:12px;}
+.empty h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.empty p{font-size:13px;line-height:1.7;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px;}
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <div id="sidebar-header"><h1>📚 IELTS 오답노트</h1><p>Cambridge 16–20 · Reading</p></div>
+  <div id="nav-tree"></div>
+</div>
+<div id="main">
+  <div id="topbar"><h2 id="ptitle">패시지를 선택하세요</h2><span id="ptopic" class="topic-chip" style="display:none"></span></div>
+  <div id="tabs">
+    <div class="tab-btn active" data-tab="sents">① 문장별 학습</div>
+    <div class="tab-btn" data-tab="vocab">📖 전체 어휘</div>
+    <div class="tab-btn" data-tab="tfng">❌ T/F/NG 오답</div>
+    <div class="tab-btn" data-tab="summary">🗺️ 구조도</div>
+  </div>
+  <div id="content">
+    <div id="tab-sents" class="tab-panel active"><div class="empty"><div class="em">👈</div><h3>왼쪽에서 패시지를 선택하세요</h3><p>Cambridge 16–20 총 60개 패시지</p></div></div>
+    <div id="tab-vocab" class="tab-panel"></div>
+    <div id="tab-tfng" class="tab-panel"></div>
+    <div id="tab-summary" class="tab-panel"></div>
+  </div>
+</div>
+<script>
+
+const PASSAGES = {
+
+"C16_T1_P1": {
+  title:"Cambridge 16 · Test 1 · Passage 1",
+  topic:"Why We Need to Protect Polar Bears",
+  qTypes:["True / False / Not Given","Table Completion"],
+  sentences:[
+    {type:"para",label:"Para 1",role:"도입 — 기후변화와 지방의 역설"},
+    {num:1,en:"Polar bears are being increasingly threatened by the effects of climate change, but their disappearance could have far-reaching consequences.",
+     kr:"북극곰은 기후변화의 영향으로 점점 더 위협받고 있지만, 그들의 소멸은 광범위한 결과를 초래할 수 있다.",
+     grammar:"<strong>be being + p.p.</strong> → 현재진행 수동태. <strong>far-reaching</strong> = '광범위한' IELTS 빈출.",
+     vocab:[{w:"threatened",pos:"adj",kr:"위협받는"},{w:"increasingly",pos:"adv",kr:"점점 더"},{w:"far-reaching",pos:"adj",kr:"광범위한"},{w:"consequences",pos:"n",kr:"결과, 영향"}]},
+    {num:2,en:"They are uniquely adapted to the extreme conditions of the Arctic Circle, where temperatures can reach -40°C.",
+     kr:"이들은 기온이 영하 40도까지 떨어지는 북극권의 극한 환경에 독특하게 적응해 있다.",
+     grammar:"<strong>be adapted to</strong> = '~에 적응하다'. <strong>where</strong>는 관계부사 (= in which).",
+     vocab:[{w:"uniquely",pos:"adv",kr:"독특하게"},{w:"adapted to",pos:"phrase",kr:"~에 적응된"},{w:"extreme",pos:"adj",kr:"극한의"}]},
+    {num:3,en:"One reason for this is that they have up to 11 centimetres of fat underneath their skin.",
+     kr:"그 이유 중 하나는 이들의 피부 아래에 최대 11센티미터 두께의 지방이 있다는 것이다.",
+     grammar:"<strong>One reason for this is that ~</strong>: 앞 내용을 설명하는 전형적 구조. <strong>up to</strong> = '최대 ~까지'.",
+     vocab:[{w:"up to",pos:"prep",kr:"최대 ~까지"},{w:"underneath",pos:"prep",kr:"~의 아래에"}]},
+    {num:4,en:"Humans with comparative levels of adipose tissue would be considered obese and would be likely to suffer from diabetes and heart disease.",
+     kr:"비슷한 수준의 지방 조직을 가진 인간이라면 비만으로 여겨지고 당뇨병과 심장 질환을 앓을 가능성이 높을 것이다.",
+     grammar:"<strong>would be considered / would be likely to</strong> → 가정법 현재. <strong>adipose tissue</strong> = 지방 조직(의학 용어).",
+     vocab:[{w:"comparative",pos:"adj",kr:"비교적, 유사 수준의"},{w:"adipose tissue",pos:"n",kr:"지방 조직"},{w:"obese",pos:"adj",kr:"비만인"},{w:"diabetes",pos:"n",kr:"당뇨병"}]},
+    {num:5,en:"Yet the polar bear experiences no such consequences.",
+     kr:"그러나 북극곰은 그러한 결과를 전혀 경험하지 않는다.",
+     grammar:"<strong>Yet</strong> = 역접 접속사. <strong>no such consequences</strong>는 앞 문장(비만·당뇨·심장병)을 통째로 부정. Q1 FALSE의 핵심 근거.",
+     vocab:[{w:"yet",pos:"conj",kr:"그러나"},{w:"consequences",pos:"n",kr:"결과"}]},
+    {type:"para",label:"Para 2",role:"유전자 연구 — 심장병 모델"},
+    {num:6,en:"A 2014 study by Shi Ping Liu and colleagues sheds light on this mystery.",
+     kr:"Shi Ping Liu와 동료들이 2014년 수행한 연구가 이 미스터리를 밝혀준다.",
+     grammar:"<strong>shed light on</strong> = '~을 밝히다' IELTS 빈출 관용어.",
+     vocab:[{w:"shed light on",pos:"idiom",kr:"~을 밝히다"}]},
+    {num:7,en:"They compared the genetic structure of polar bears with that of their closest relatives from a warmer climate, the brown bears.",
+     kr:"그들은 북극곰의 유전 구조를 더 따뜻한 기후에 사는 가장 가까운 친척인 불곰의 그것과 비교했다.",
+     grammar:"<strong>compare A with B</strong>. <strong>that of</strong>는 'the genetic structure of'의 반복을 피하는 대명사. Q2 FALSE 핵심.",
+     vocab:[{w:"genetic structure",pos:"n",kr:"유전 구조"},{w:"relatives",pos:"n",kr:"친척, 근연종"}]},
+    {num:8,en:"This allowed them to determine the genes that have allowed polar bears to survive in one of the toughest environments on Earth.",
+     kr:"이를 통해 북극곰이 지구에서 가장 혹독한 환경 중 하나에서 살아남도록 한 유전자들을 밝혀낼 수 있었다.",
+     grammar:"<strong>allow A to do</strong> 구조 2회 반복. <strong>one of the toughest</strong> = 최상급 복수 구조.",
+     vocab:[{w:"determine",pos:"v",kr:"밝히다, 결정하다"},{w:"survive",pos:"v",kr:"살아남다"}]},
+    {num:9,en:"Liu and his colleagues found the polar bears had a gene known as APoB, which reduces levels of low-density lipoproteins (LDLs) – a form of 'bad' cholesterol.",
+     kr:"Liu 연구팀은 북극곰이 APoB라는 유전자를 가지며, 이 유전자가 나쁜 콜레스테롤인 저밀도 지단백(LDL) 수치를 낮춘다는 것을 발견했다.",
+     grammar:"<strong>known as</strong> = 과거분사구. <strong>which reduces</strong> = 비제한적 관계절. 대시(–) = 동격 설명. Q4 TRUE 핵심.",
+     vocab:[{w:"gene",pos:"n",kr:"유전자"},{w:"known as",pos:"phrase",kr:"~로 알려진"},{w:"reduce",pos:"v",kr:"낮추다"},{w:"cholesterol",pos:"n",kr:"콜레스테롤"}]},
+    {num:10,en:"In humans, mutations of this gene are associated with increased risk of heart disease.",
+     kr:"인간에서는 이 유전자의 돌연변이가 심장 질환 위험 증가와 연관되어 있다.",
+     grammar:"<strong>be associated with</strong> = '~와 연관되다' 빈출 수동 표현.",
+     vocab:[{w:"mutation",pos:"n",kr:"돌연변이"},{w:"associated with",pos:"phrase",kr:"~와 연관된"}]},
+    {num:11,en:"Polar bears may therefore be an important study model to understand heart disease in humans.",
+     kr:"따라서 북극곰은 인간의 심장 질환을 이해하는 중요한 연구 모델이 될 수 있다.",
+     grammar:"<strong>may therefore be</strong>: may = 가능성, therefore = 앞 내용의 결론.",
+     vocab:[{w:"therefore",pos:"adv",kr:"따라서"},{w:"study model",pos:"n",kr:"연구 모델"}]},
+    {type:"para",label:"Para 3",role:"골다공증 연구"},
+    {num:12,en:"The genome of the polar bear may also provide the solution for another condition, one that particularly affects our older generation: osteoporosis.",
+     kr:"북극곰의 게놈은 노년층에 특히 영향을 미치는 또 다른 질환, 즉 골다공증의 해결책도 제공할 수 있다.",
+     grammar:"콜론(:) 뒤 <strong>osteoporosis</strong>는 'another condition'의 동격. <strong>one that</strong> = 'a condition that'의 압축.",
+     vocab:[{w:"genome",pos:"n",kr:"유전체, 게놈"},{w:"condition",pos:"n",kr:"(의학적) 질환"},{w:"osteoporosis",pos:"n",kr:"골다공증"}]},
+    {num:13,en:"This is a disease where bones show reduced density, usually caused by insufficient exercise, reduced calcium intake or food starvation.",
+     kr:"이는 뼈의 밀도가 낮아지는 질환으로, 보통 운동 부족, 칼슘 섭취 감소, 식량 부족으로 발생한다.",
+     grammar:"<strong>where</strong> = 관계부사(= in which). <strong>usually caused by</strong> = 분사구로 원인 설명.",
+     vocab:[{w:"density",pos:"n",kr:"밀도"},{w:"insufficient",pos:"adj",kr:"불충분한"},{w:"starvation",pos:"n",kr:"굶주림, 기아"}]},
+    {num:14,en:"Bone tissue is constantly being remodelled, meaning that bone is added or removed, depending on nutrient availability and the stress that the bone is under.",
+     kr:"뼈 조직은 끊임없이 재형성되며, 영양소의 이용 가능 여부와 뼈가 받는 스트레스에 따라 뼈가 생성되거나 제거된다.",
+     grammar:"<strong>is constantly being remodelled</strong> = 현재진행 수동태. <strong>meaning that</strong> = 결과 분사구문. <strong>depending on</strong> = '~에 따라'.",
+     vocab:[{w:"tissue",pos:"n",kr:"조직"},{w:"remodel",pos:"v",kr:"재형성하다"},{w:"nutrient",pos:"n",kr:"영양소"},{w:"depending on",pos:"phrase",kr:"~에 따라"}]},
+    {num:15,en:"Female polar bears, however, undergo extreme conditions during every pregnancy.",
+     kr:"그러나 암컷 북극곰은 임신할 때마다 극한 상황을 겪는다.",
+     grammar:"<strong>however</strong> = 삽입 역접 부사. <strong>undergo</strong> = '~을 겪다'.",
+     vocab:[{w:"undergo",pos:"v",kr:"겪다, 경험하다"},{w:"pregnancy",pos:"n",kr:"임신"}]},
+    {num:16,en:"Once autumn comes around, these females will dig maternity dens in the snow and will remain there throughout the winter, both before and after the birth of their cubs.",
+     kr:"가을이 돌아오면 암컷들은 눈 속에 산란굴을 파고 새끼 출산 전후 모두 겨울 내내 그곳에 머문다.",
+     grammar:"<strong>Once</strong> = 시간 부사절('~하면'). <strong>both before and after</strong> = '전후 모두'. <strong>throughout</strong> = '~내내'.",
+     vocab:[{w:"maternity den",pos:"n",kr:"출산 굴"},{w:"throughout",pos:"prep",kr:"~내내"},{w:"cubs",pos:"n",kr:"(곰의) 새끼"}]},
+    {num:17,en:"This process results in about six months of fasting, where the female bears have to keep themselves and their cubs alive, depleting their own calcium and calorie reserves.",
+     kr:"이 과정은 약 6개월의 단식으로 이어지며, 자신의 칼슘·칼로리 비축분을 소진하면서 자신과 새끼를 살려야 한다.",
+     grammar:"<strong>result in</strong> = '~을 초래하다'. <strong>depleting</strong> = 동시 상황 분사구문. Q5 TRUE 핵심.",
+     vocab:[{w:"result in",pos:"phrasal v",kr:"~을 초래하다"},{w:"fasting",pos:"n",kr:"단식"},{w:"deplete",pos:"v",kr:"소진하다"},{w:"reserves",pos:"n",kr:"비축량"}]},
+    {num:18,en:"Despite this, their bones remain strong and dense.",
+     kr:"이럼에도 불구하고 이들의 뼈는 강하고 밀도 높게 유지된다.",
+     grammar:"<strong>Despite this</strong> = 양보 전치사구. Q6 FALSE의 핵심 반증.",
+     vocab:[{w:"despite",pos:"prep",kr:"~에도 불구하고"},{w:"dense",pos:"adj",kr:"밀도가 높은"}]},
+    {type:"para",label:"Para 4",role:"Lennox & Goodship 연구 — 골다공증 응용"},
+    {num:19,en:"Physiologists Alanda Lennox and Allen Goodship found an explanation for this paradox in 2008.",
+     kr:"생리학자 Lennox와 Goodship은 2008년에 이 역설에 대한 설명을 찾아냈다.",
+     grammar:"직함(Physiologists)이 앞에 붙어 인명 동격 설명. <strong>paradox</strong> = '역설'.",
+     vocab:[{w:"physiologist",pos:"n",kr:"생리학자"},{w:"paradox",pos:"n",kr:"역설"}]},
+    {num:20,en:"They discovered that pregnant bears were able to increase the density of their bones before they started to build their dens.",
+     kr:"임신한 암곰이 굴을 짓기 전에 뼈 밀도를 높일 수 있다는 것을 발견했다.",
+     grammar:"<strong>were able to</strong> = 특정 과거 능력 강조(could와 유사). <strong>before</strong> = 시간 부사절.",
+     vocab:[{w:"pregnant",pos:"adj",kr:"임신한"}]},
+    {num:21,en:"In addition, six months later, when they finally emerged from the den with their cubs, there was no evidence of significant loss of bone density.",
+     kr:"게다가, 6개월 후 새끼와 함께 굴에서 나왔을 때 뼈 밀도의 뚜렷한 손실 증거가 없었다.",
+     grammar:"<strong>In addition</strong> = 추가 정보 접속부사. <strong>there was no evidence of</strong> = '~의 증거가 없었다'. Q6 FALSE 핵심.",
+     vocab:[{w:"emerge",pos:"v",kr:"나오다, 나타나다"},{w:"evidence",pos:"n",kr:"증거"},{w:"significant",pos:"adj",kr:"뚜렷한, 상당한"}]},
+    {num:22,en:"Hibernating brown bears do not have this capacity and must therefore resort to major bone reformation in the following spring.",
+     kr:"동면하는 불곰은 이 능력이 없어서 이듬해 봄에 대대적인 뼈 재형성에 의존해야 한다.",
+     grammar:"<strong>resort to</strong> = '~에 의존하다(차선책으로)'. <strong>therefore</strong> = 원인-결과.",
+     vocab:[{w:"hibernating",pos:"adj",kr:"동면하는"},{w:"capacity",pos:"n",kr:"능력, 역량"},{w:"resort to",pos:"phrasal v",kr:"~에 의존하다"}]},
+    {num:23,en:"If the mechanism of bone remodelling in polar bears can be understood, many bedridden humans, and even astronauts, could potentially benefit.",
+     kr:"북극곰의 뼈 재형성 메커니즘을 이해할 수 있다면, 많은 와상 환자와 우주비행사도 잠재적으로 혜택을 받을 수 있다.",
+     grammar:"<strong>If ~ can be understood</strong> = 조건절 수동태. <strong>could potentially benefit</strong> = 주절 가능성 추측. Q7 TRUE 핵심.",
+     vocab:[{w:"mechanism",pos:"n",kr:"메커니즘"},{w:"bedridden",pos:"adj",kr:"와상의"},{w:"astronaut",pos:"n",kr:"우주비행사"},{w:"potentially",pos:"adv",kr:"잠재적으로"}]},
+    {type:"para",label:"Para 5",role:"지능 — 문제 해결 능력"},
+    {num:24,en:"The medical benefits of the polar bear for humanity certainly have their importance in our conservation efforts, but these should not be the only factors taken into consideration.",
+     kr:"북극곰이 인류에게 주는 의학적 이점이 보전 노력에서 중요하지만, 이것만이 고려해야 할 유일한 요소여서는 안 된다.",
+     grammar:"<strong>taken into consideration</strong> = '고려되는' (과거분사구로 factors 수식). <strong>conservation</strong> = 보전.",
+     vocab:[{w:"conservation",pos:"n",kr:"보전, 보호"},{w:"taken into consideration",pos:"phrase",kr:"고려되는"}]},
+    {num:25,en:"We tend to want to protect animals we think are intelligent and possess emotions, such as elephants and primates.",
+     kr:"우리는 코끼리나 영장류처럼 지능이 있고 감정을 가진다고 생각하는 동물을 보호하려는 경향이 있다.",
+     grammar:"<strong>tend to</strong> = '~하는 경향이 있다'. <strong>animals we think are</strong>: 'that'이 생략된 관계절.",
+     vocab:[{w:"tend to",pos:"phrase",kr:"~하는 경향이 있다"},{w:"possess",pos:"v",kr:"가지다"},{w:"primates",pos:"n",kr:"영장류"}]},
+    {num:26,en:"Bears, on the other hand, seem to be perceived as stupid and in many cases violent.",
+     kr:"반면, 곰은 멍청하고 폭력적이라고 인식되는 것 같다.",
+     grammar:"<strong>on the other hand</strong> = 대조. <strong>seem to be perceived as</strong> = 추측+수동. Q8 정답(violent) 위치.",
+     vocab:[{w:"on the other hand",pos:"phrase",kr:"반면에"},{w:"perceived as",pos:"phrase",kr:"~로 인식되다"},{w:"violent",pos:"adj",kr:"폭력적인"}]},
+    {num:27,en:"And yet anecdotal evidence from the field challenges those assumptions, suggesting for example that polar bears have good problem-solving abilities.",
+     kr:"그러나 현장의 일화적 증거는 그러한 가정에 이의를 제기하며, 북극곰이 뛰어난 문제 해결 능력을 가지고 있다고 제시한다.",
+     grammar:"<strong>And yet</strong> = 강한 역접. <strong>anecdotal evidence</strong> = 일화적 증거(비공식). <strong>suggesting</strong> = 결과 분사구문.",
+     vocab:[{w:"anecdotal",pos:"adj",kr:"일화적인"},{w:"challenge",pos:"v",kr:"이의를 제기하다"},{w:"assumptions",pos:"n",kr:"가정, 추측"}]},
+    {num:28,en:"A male bear called GoGo in Tennoji Zoo, Osaka, has even been observed making use of a tool to manipulate his environment.",
+     kr:"오사카 덴노지 동물원의 GoGo라는 수컷 곰은 심지어 도구를 사용해 환경을 조작하는 것이 관찰되었다.",
+     grammar:"<strong>has been observed + v-ing</strong> = 현재완료 수동 + 지각동사. <strong>make use of</strong> = 'use'의 격식체. Q9 정답(tool).",
+     vocab:[{w:"make use of",pos:"phrase",kr:"~을 이용하다"},{w:"manipulate",pos:"v",kr:"조작하다"}]},
+    {num:29,en:"The bear used a tree branch on multiple occasions to dislodge a piece of meat hung out of his reach.",
+     kr:"그 곰은 나뭇가지를 여러 차례 사용해 닿지 않는 곳에 걸린 고기를 끌어내렸다.",
+     grammar:"<strong>on multiple occasions</strong> = '여러 차례'. <strong>dislodge</strong> = '제자리에서 떼어내다'. Q10 정답(meat).",
+     vocab:[{w:"dislodge",pos:"v",kr:"제자리에서 떼어내다"},{w:"out of reach",pos:"phrase",kr:"닿지 않는 곳에"}]},
+    {num:30,en:"Problem-solving ability has also been witnessed in wild polar bears, although not as obviously as with GoGo.",
+     kr:"문제 해결 능력은 야생 북극곰에서도 목격되었지만, GoGo만큼 분명하지는 않다.",
+     grammar:"<strong>although not as obviously as</strong>: 양보절에서 as ~ as 비교 구조.",
+     vocab:[{w:"witnessed",pos:"v(p.p.)",kr:"목격된"},{w:"obviously",pos:"adv",kr:"분명하게"}]},
+    {num:31,en:"A calculated move by a male bear involved running and jumping onto barrels in an attempt to get to a photographer standing on a platform four metres high.",
+     kr:"수컷 곰의 계산된 행동은 4미터 높이 플랫폼 위의 사진작가에게 접근하기 위해 통 위로 달려서 뛰어오르는 것이었다.",
+     grammar:"<strong>calculated move</strong> = '계산된 행동'. <strong>in an attempt to</strong> = '~하려는 시도로'. Q11 정답(photographer) 위치.",
+     vocab:[{w:"calculated",pos:"adj",kr:"계산된, 의도적인"},{w:"in an attempt to",pos:"phrase",kr:"~하려는 시도로"},{w:"platform",pos:"n",kr:"플랫폼, 단"}]},
+    {type:"para",label:"Para 6",role:"Ames 연구 — 창의성"},
+    {num:32,en:"In other studies, such as one by Alison Ames in 2008, polar bears showed deliberate and focused manipulation.",
+     kr:"Alison Ames의 2008년 연구 등 다른 연구들에서도 북극곰은 의도적이고 집중된 조작 행동을 보였다.",
+     grammar:"<strong>such as one by</strong>: one = a study. <strong>deliberate</strong> = '의도적인'.",
+     vocab:[{w:"deliberate",pos:"adj",kr:"의도적인"},{w:"manipulation",pos:"n",kr:"조작 행동"}]},
+    {num:33,en:"For example, Ames observed bears putting objects in piles and then knocking them over in what appeared to be a game.",
+     kr:"예를 들어, Ames는 곰들이 물체를 쌓은 뒤 쓰러뜨리는 행동을 관찰했는데, 이는 게임처럼 보였다.",
+     grammar:"<strong>observed + v-ing</strong> = '~하는 것을 관찰했다'. <strong>in what appeared to be</strong> = 전치사+관계절. Q12 정답(game).",
+     vocab:[{w:"pile",pos:"n",kr:"더미"},{w:"knock over",pos:"phrasal v",kr:"쓰러뜨리다"}]},
+    {num:34,en:"The study demonstrates that bears are capable of agile and thought-out behaviours.",
+     kr:"이 연구는 곰이 민첩하고 사려 깊은 행동을 할 수 있음을 보여준다.",
+     grammar:"<strong>be capable of</strong> = '~을 할 수 있다'. <strong>thought-out</strong> = '충분히 생각된, 사려 깊은'.",
+     vocab:[{w:"agile",pos:"adj",kr:"민첩한"},{w:"thought-out",pos:"adj",kr:"사려 깊은, 계획된"}]},
+    {num:35,en:"These examples suggest bears have greater creativity and problem-solving abilities than previously thought.",
+     kr:"이 사례들은 곰이 이전에 생각했던 것보다 더 뛰어난 창의성과 문제 해결 능력을 가지고 있음을 시사한다.",
+     grammar:"<strong>than previously thought</strong>: 비교절에서 'it was previously thought'가 압축된 표현.",
+     vocab:[{w:"creativity",pos:"n",kr:"창의성"},{w:"previously",pos:"adv",kr:"이전에"}]},
+    {type:"para",label:"Para 7",role:"감정 — 사회적 관계"},
+    {num:36,en:"As for emotions, while the evidence is once again anecdotal, many bears have been seen to hit out at ice and snow – seemingly out of frustration – when they have just missed out on a kill.",
+     kr:"감정에 관해서는, 증거가 다시 일화적이지만, 많은 곰들이 사냥을 놓쳤을 때 좌절감으로 얼음과 눈을 치는 것이 목격되었다.",
+     grammar:"<strong>As for</strong> = '~에 관해서는'. <strong>have been seen to + 동사원형</strong> = 지각동사 수동 완료. 대시(–) 삽입구. Q13 정답(frustration).",
+     vocab:[{w:"as for",pos:"phrase",kr:"~에 관해서는"},{w:"seemingly",pos:"adv",kr:"~처럼 보이게"},{w:"frustration",pos:"n",kr:"좌절감"},{w:"miss out on",pos:"phrasal v",kr:"~을 놓치다"}]},
+    {num:37,en:"Moreover, polar bears can form unusual relationships with other species, including playing with the dogs used to pull sleds in the Arctic.",
+     kr:"더욱이, 북극곰은 북극에서 썰매를 끄는 개들과 노는 것을 포함해 다른 종과 특이한 관계를 형성할 수 있다.",
+     grammar:"<strong>Moreover</strong> = 추가 정보. <strong>including + v-ing</strong> = 예시. <strong>used to pull</strong> = 과거분사구.",
+     vocab:[{w:"moreover",pos:"adv",kr:"더욱이"},{w:"unusual",pos:"adj",kr:"특이한"},{w:"species",pos:"n",kr:"종 (생물)"}]},
+    {num:38,en:"Remarkably, one hand-raised polar bear called Agee has formed a close relationship with her owner Mark Dumas to the point where they even swim together.",
+     kr:"놀랍게도, Agee라는 손수 키운 북극곰은 주인 Mark Dumas와 함께 수영까지 할 정도로 친밀한 관계를 형성했다.",
+     grammar:"<strong>to the point where</strong> = '~할 정도로'. <strong>hand-raised</strong> = '손으로(직접) 키운'.",
+     vocab:[{w:"remarkably",pos:"adv",kr:"놀랍게도"},{w:"hand-raised",pos:"adj",kr:"손수 키운"},{w:"to the point where",pos:"phrase",kr:"~할 정도로"}]},
+    {num:39,en:"This is even more astonishing since polar bears are known to actively hunt humans in the wild.",
+     kr:"이는 북극곰이 야생에서 인간을 적극적으로 사냥하는 것으로 알려져 있기 때문에 더욱 놀랍다.",
+     grammar:"<strong>since</strong> = 이유 부사절. <strong>are known to</strong> = '~하는 것으로 알려져 있다'(수동).",
+     vocab:[{w:"astonishing",pos:"adj",kr:"놀라운"},{w:"actively",pos:"adv",kr:"적극적으로"}]},
+    {type:"para",label:"Para 8",role:"결론 — 이중 손실"},
+    {num:40,en:"If climate change were to lead to their extinction, this would mean not only the loss of potential breakthroughs in human medicine, but more importantly, the disappearance of an intelligent, majestic animal.",
+     kr:"기후변화가 그들의 멸종으로 이어진다면, 이는 인간 의학의 잠재적 돌파구 손실뿐 아니라, 더 중요하게는 지능적이고 위엄 있는 동물의 소멸을 의미한다.",
+     grammar:"<strong>If ~ were to</strong> = 가정법 미래(가능성 낮은 상황). <strong>not only A, but more importantly B</strong> = 상관접속사 패턴.",
+     vocab:[{w:"extinction",pos:"n",kr:"멸종"},{w:"breakthrough",pos:"n",kr:"돌파구"},{w:"majestic",pos:"adj",kr:"위엄 있는"}]}
+  ],
+  allVocab:[
+    {w:"far-reaching",pos:"adj",pron:"/fɑːr ˈriːtʃɪŋ/",kr:"광범위한",ex:"The <em>far-reaching</em> consequences of climate change affect all species.",syn:["wide-ranging","extensive"]},
+    {w:"adipose tissue",pos:"n",pron:"/ˈædɪpəʊs/",kr:"지방 조직",ex:"Bears accumulate <em>adipose tissue</em> to survive winter.",syn:["body fat"]},
+    {w:"obese",pos:"adj",pron:"/əʊˈbiːs/",kr:"비만인",ex:"Humans with excessive fat would be considered <em>obese</em>.",syn:["overweight"]},
+    {w:"shed light on",pos:"idiom",pron:"",kr:"~을 밝히다",ex:"The study <em>sheds light on</em> how bears survive.",syn:["illuminate","clarify"]},
+    {w:"osteoporosis",pos:"n",pron:"/ˌɒstɪəʊpəˈrəʊsɪs/",kr:"골다공증",ex:"<em>Osteoporosis</em> causes bones to become fragile.",syn:[]},
+    {w:"deplete",pos:"v",pron:"/dɪˈpliːt/",kr:"소진하다",ex:"Fasting <em>depletes</em> calcium reserves.",syn:["exhaust","drain"]},
+    {w:"paradox",pos:"n",pron:"/ˈpærədɒks/",kr:"역설",ex:"It is a <em>paradox</em> that bears stay healthy while fasting.",syn:["contradiction"]},
+    {w:"bedridden",pos:"adj",pron:"/ˈbedrɪdən/",kr:"와상의",ex:"<em>Bedridden</em> patients lose bone density quickly.",syn:["immobile"]},
+    {w:"conservation",pos:"n",pron:"/ˌkɒnsəˈveɪʃn/",kr:"보전, 보호",ex:"Wildlife <em>conservation</em> is vital for biodiversity.",syn:["preservation"]},
+    {w:"anecdotal",pos:"adj",pron:"/ˌænɪkˈdəʊtl/",kr:"일화적인",ex:"The evidence was <em>anecdotal</em>, not from experiments.",syn:["informal"]},
+    {w:"dislodge",pos:"v",pron:"/dɪsˈlɒdʒ/",kr:"제자리에서 떼어내다",ex:"The bear used a branch to <em>dislodge</em> the meat.",syn:["displace","remove"]},
+    {w:"deliberate",pos:"adj",pron:"/dɪˈlɪbərət/",kr:"의도적인",ex:"The behaviour was <em>deliberate</em> and focused.",syn:["intentional","calculated"]},
+    {w:"frustration",pos:"n",pron:"/frʌˈstreɪʃn/",kr:"좌절감",ex:"Bears hit the ice seemingly out of <em>frustration</em>.",syn:["annoyance"]},
+    {w:"extinction",pos:"n",pron:"/ɪkˈstɪŋkʃn/",kr:"멸종",ex:"Climate change could lead to polar bear <em>extinction</em>.",syn:["dying out"]},
+    {w:"majestic",pos:"adj",pron:"/məˈdʒestɪk/",kr:"위엄 있는",ex:"The polar bear is a <em>majestic</em> animal.",syn:["magnificent","grand"]},
+    {w:"breakthrough",pos:"n",pron:"/ˈbreɪkθruː/",kr:"돌파구",ex:"Research could lead to medical <em>breakthroughs</em>.",syn:["advance","discovery"]}
+  ],
+  tfng:[
+    {qNum:1,stmt:"Polar bears suffer from various health problems due to the build-up of fat under their skin.",correct:"FALSE",mine:"",
+     evPara:"Para 1",ev:"Humans with comparative levels of adipose tissue would be considered obese… <mark>Yet the polar bear experiences no such consequences.</mark>",
+     why:"지문은 인간이라면 비만·당뇨·심장병을 앓겠지만, 북극곰은 그런 결과가 없다고 명시 → 진술과 정반대 → FALSE.",
+     trap:"<strong>함정:</strong> 지방이 많다는 사실은 맞지만 '건강 문제를 일으킨다'는 내용은 지문이 부정. 인간 기준과 북극곰 기준을 혼동하지 말 것."},
+    {qNum:2,stmt:"The study done by Liu and his colleagues compared different groups of polar bears.",correct:"FALSE",mine:"",
+     evPara:"Para 2",ev:"They compared <mark>the genetic structure of polar bears with that of their closest relatives… the brown bears</mark>.",
+     why:"비교 대상은 '다른 집단의 북극곰'이 아니라 '북극곰 vs 불곰(다른 종)' → FALSE.",
+     trap:"<strong>함정:</strong> 구체적 내용이 언급되므로 NOT GIVEN이 아님. 'different groups of polar bears'를 꼼꼼히 확인."},
+    {qNum:3,stmt:"Liu and colleagues were the first researchers to compare polar bears and brown bears genetically.",correct:"NOT GIVEN",mine:"",
+     evPara:"Para 2",ev:"(지문에 Liu가 최초 연구자인지에 대한 언급 없음)",
+     why:"최초 여부에 대한 어떠한 비교도 없음 → NOT GIVEN.",
+     trap:"<strong>함정:</strong> '2014 study'라는 연도가 있어서 특정 연구처럼 보이지만, 최초 여부는 전혀 없음. 정보 없음 = NOT GIVEN."},
+    {qNum:4,stmt:"Polar bears are able to control their levels of 'bad' cholesterol by genetic means.",correct:"TRUE",mine:"",
+     evPara:"Para 2",ev:"polar bears had a gene known as APoB, which <mark>reduces levels of low-density lipoproteins (LDLs) – a form of 'bad' cholesterol</mark>.",
+     why:"유전자(APoB)가 나쁜 콜레스테롤을 낮춘다 = 유전적 수단으로 조절 → TRUE.",trap:""},
+    {qNum:5,stmt:"Female polar bears are able to survive for about six months without food.",correct:"TRUE",mine:"",
+     evPara:"Para 3",ev:"This process results in <mark>about six months of fasting</mark>, where the female bears have to keep themselves and their cubs alive.",
+     why:"약 6개월 단식하며 살아남는다는 내용 명시 → TRUE.",trap:""},
+    {qNum:6,stmt:"It was found that the bones of female polar bears were very weak when they came out of their dens in spring.",correct:"FALSE",mine:"",
+     evPara:"Para 4",ev:"six months later, when they finally emerged from the den with their cubs, <mark>there was no evidence of significant loss of bone density</mark>.",
+     why:"뼈 밀도 손실 없음 → 뼈가 약해졌다는 진술은 틀림 → FALSE.",trap:""},
+    {qNum:7,stmt:"The polar bear's mechanism for increasing bone density could also be used by people one day.",correct:"TRUE",mine:"",
+     evPara:"Para 4",ev:"If the mechanism of bone remodelling in polar bears can be understood, <mark>many bedridden humans, and even astronauts, could potentially benefit</mark>.",
+     why:"잠재적 혜택 가능성 = 언젠가 사람에게 쓰일 수 있다 → TRUE.",trap:""}
+  ],
+  paragraphs:[
+    {lbl:"P1",role:"도입 + 역설",desc:"기후변화로 위협받는 북극곰. 두꺼운 지방층에도 불구하고 건강 문제가 없다는 역설 제시."},
+    {lbl:"P2",role:"유전자 연구 (심장)",desc:"Liu et al. 2014: 북극곰-불곰 유전체 비교. <strong>APoB 유전자</strong>가 나쁜 콜레스테롤 억제 → 심장병 연구 모델."},
+    {lbl:"P3",role:"골다공증 연구",desc:"임신 암컷이 6개월 단식에도 뼈 밀도 유지. 와상 환자·우주비행사 적용 가능성."},
+    {lbl:"P4",role:"지능·문제해결",desc:"GoGo 도구 사용, 야생 계산된 행동(photographer), Ames 연구. '멍청하다'는 인식 반박."},
+    {lbl:"P5",role:"감정·사회성",desc:"좌절 시 얼음 치는 행동, Agee의 특이한 유대 관계."},
+    {lbl:"P6",role:"결론",desc:"멸종 시 의학적 돌파구 손실 + 위엄 있는 동물의 소멸이라는 이중 손실 강조."}
+  ],
+  summary:"Why we need to protect polar bears — 의학적 이점(심장·뼈)과 지능·감정을 근거로 북극곰 보호의 필요성을 주장하는 지문."
+},
+
+
+"C18_T2_P1": {
+  title:"Cambridge 18 · Test 2 · Passage 1",
+  topic:"Stonehenge",
+  qTypes:["Notes Completion","True / False / Not Given"],
+  sentences:[
+    {type:"para",label:"Para 1",role:"도입 — 스톤헨지 소개"},
+    {num:1,en:"For centuries, historians and archaeologists have puzzled over the many mysteries of Stonehenge, a prehistoric monument that took an estimated 1,500 years to erect.",
+     kr:"수 세기 동안 역사학자와 고고학자들은 건설에 약 1,500년이 걸린 것으로 추정되는 선사 시대 기념물 스톤헨지의 많은 수수께끼에 당혹감을 느껴왔다.",
+     grammar:"<strong>have puzzled over</strong> = 현재완료(오랫동안 지속). <strong>a prehistoric monument</strong>는 Stonehenge의 동격. <strong>took ~ to erect</strong> = '건설하는 데 ~이 걸렸다'.",
+     vocab:[{w:"puzzle over",pos:"phrasal v",kr:"~에 당혹해하다, 고민하다"},{w:"prehistoric",pos:"adj",kr:"선사 시대의"},{w:"monument",pos:"n",kr:"기념물"},{w:"erect",pos:"v",kr:"세우다, 건설하다"}]},
+    {num:2,en:"Located on Salisbury Plain in southern England, it is comprised of roughly 100 massive upright stones placed in a circular layout.",
+     kr:"잉글랜드 남부 솔즈베리 평원에 위치한 이 유적은 원형 배열로 놓인 약 100개의 거대한 직립 돌로 이루어져 있다.",
+     grammar:"<strong>Located on</strong> = 과거분사 분사구문(= Because/As it is located). <strong>be comprised of</strong> = '~으로 구성되다'. <strong>upright</strong> = '직립한'.",
+     vocab:[{w:"comprised of",pos:"phrase",kr:"~으로 구성된"},{w:"upright",pos:"adj",kr:"직립한"},{w:"circular layout",pos:"n",kr:"원형 배열"}]},
+    {type:"para",label:"Para 2",role:"1단계 — 도랑과 기둥"},
+    {num:3,en:"Archaeologists believe England's most iconic prehistoric ruin was built in several stages with the earliest constructed 5,000 or more years ago.",
+     kr:"고고학자들은 영국에서 가장 상징적인 선사 시대 유적이 여러 단계에 걸쳐 건설되었으며, 가장 초기 단계는 5,000년 이상 전에 이루어진 것으로 보고 있다.",
+     grammar:"<strong>with the earliest constructed</strong> = 'with + 명사 + 분사' 독립분사구문. <strong>iconic</strong> = '상징적인' IELTS 빈출.",
+     vocab:[{w:"iconic",pos:"adj",kr:"상징적인"},{w:"ruin",pos:"n",kr:"유적, 폐허"},{w:"stage",pos:"n",kr:"단계"}]},
+    {num:4,en:"First, Neolithic Britons used primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank, or henge.",
+     kr:"먼저, 신석기 시대 영국인들은 사슴 뿔로 만들어졌을 가능성이 있는 원시적인 도구를 사용해 거대한 원형 도랑과 둑, 즉 헨지를 팠다.",
+     grammar:"<strong>which may have been fashioned out of</strong>: 비제한적 관계절 + may have p.p.(과거에 대한 추측). <strong>fashioned out of</strong> = '~으로 만들어진'. Q1 정답(deer antlers).",
+     vocab:[{w:"Neolithic",pos:"adj",kr:"신석기 시대의"},{w:"primitive",pos:"adj",kr:"원시적인"},{w:"fashion",pos:"v",kr:"만들다, 제작하다"},{w:"antler",pos:"n",kr:"사슴 뿔"},{w:"ditch",pos:"n",kr:"도랑"},{w:"henge",pos:"n",kr:"헨지(원형 토루)"}]},
+    {num:5,en:"Deep pits dating back to that era and located within the circle may have once held a ring of timber posts, according to some scholars.",
+     kr:"일부 학자들에 따르면, 그 시대로 거슬러 올라가 원 안에 위치한 깊은 구덩이들은 한때 목재 기둥 고리를 지탱했을 수 있다.",
+     grammar:"<strong>dating back to</strong>와 <strong>located within</strong>은 pits를 수식하는 분사구. <strong>may have once held</strong> = 과거 가능성 추측. Q2 정답(timber posts).",
+     vocab:[{w:"dating back to",pos:"phrase",kr:"~로 거슬러 올라가는"},{w:"pit",pos:"n",kr:"구덩이"},{w:"timber",pos:"n",kr:"목재"},{w:"post",pos:"n",kr:"기둥"}]},
+    {type:"para",label:"Para 3",role:"2단계 — 청석 이동 수수께끼"},
+    {num:6,en:"Several hundred years later, it is thought, Stonehenge's builders hoisted an estimated 80 bluestones, 43 of which remain today, into standing positions and placed them in either a horseshoe or circular formation.",
+     kr:"수백 년 후, 스톤헨지 건설자들은 약 80개의 청석(현재 43개 남음)을 직립 위치로 들어 올려 말굽형 또는 원형 배열로 놓은 것으로 추정된다.",
+     grammar:"<strong>it is thought</strong>는 삽입구(추측 표현). <strong>43 of which remain today</strong> = 비제한적 관계절. <strong>hoist</strong> = '들어 올리다'.",
+     vocab:[{w:"hoist",pos:"v",kr:"들어 올리다"},{w:"bluestone",pos:"n",kr:"청석"},{w:"horseshoe",pos:"n",kr:"말굽형"},{w:"formation",pos:"n",kr:"배열, 형태"}]},
+    {num:7,en:"These stones have been traced all the way to the Preseli Hills in Wales, some 300 kilometres from Stonehenge.",
+     kr:"이 돌들은 스톤헨지에서 약 300킬로미터 떨어진 웨일스의 프레셀리 구릉지까지 거슬러 추적되었다.",
+     grammar:"<strong>have been traced</strong> = 현재완료 수동태. <strong>all the way to</strong> = '저 멀리 ~까지'. <strong>some 300 kilometres</strong> = 'approximately 300 km'.",
+     vocab:[{w:"trace",pos:"v",kr:"추적하다, 거슬러 올라가다"},{w:"all the way to",pos:"phrase",kr:"저 멀리 ~까지"}]},
+    {num:8,en:"How, then, did prehistoric builders without sophisticated tools or engineering haul these boulders, which weigh up to four tons, over such a great distance?",
+     kr:"그렇다면, 정교한 도구나 공학 기술도 없는 선사 시대 건설자들이 어떻게 최대 4톤에 달하는 이 바위들을 그토록 먼 거리까지 운반했을까?",
+     grammar:"수사의문문(rhetorical question). <strong>sophisticated</strong> = '정교한'. <strong>haul</strong> = '끌다, 운반하다'. <strong>which weigh up to</strong> = 비제한적 관계절.",
+     vocab:[{w:"sophisticated",pos:"adj",kr:"정교한, 고도의"},{w:"haul",pos:"v",kr:"운반하다, 끌다"},{w:"boulder",pos:"n",kr:"바위, 큰 돌"}]},
+    {type:"para",label:"Para 4",role:"고고학적 이론 — 운반 방법"},
+    {num:9,en:"According to one long-standing theory among archaeologists, Stonehenge's builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills.",
+     kr:"고고학자들 사이에서 오래된 이론에 따르면, 스톤헨지 건설자들이 나무 줄기로 썰매와 롤러를 만들어 프레셀리 구릉지에서 청석을 끌어온 것이다.",
+     grammar:"<strong>According to</strong> = '~에 따르면'. <strong>fashion A out of B</strong> = 'B로 A를 만들다'. Q3 정답(tree trunks).",
+     vocab:[{w:"long-standing",pos:"adj",kr:"오래된, 오래 지속된"},{w:"sledge",pos:"n",kr:"썰매"},{w:"roller",pos:"n",kr:"롤러"},{w:"trunk",pos:"n",kr:"나무 줄기"},{w:"lug",pos:"v",kr:"끌다, 운반하다"}]},
+    {num:10,en:"They then transferred the boulders onto rafts and floated them first along the Welsh coast and then up the River Avon toward Salisbury Plain; alternatively, they may have towed each stone with a fleet of vessels.",
+     kr:"그런 다음 바위를 뗏목에 올려 웨일스 해안을 따라, 이어 에이번 강을 거슬러 솔즈베리 평원 쪽으로 운반했거나, 선단 선박으로 각 돌을 예인했을 수도 있다.",
+     grammar:"세미콜론(;)으로 두 이론 병렬. <strong>alternatively</strong> = '아니면, 대안으로'. <strong>may have towed</strong> = 과거 가능성. <strong>fleet</strong> = '선단'.",
+     vocab:[{w:"raft",pos:"n",kr:"뗏목"},{w:"alternatively",pos:"adv",kr:"아니면, 대안으로"},{w:"tow",pos:"v",kr:"예인하다, 끌다"},{w:"fleet",pos:"n",kr:"선단, 함대"},{w:"vessel",pos:"n",kr:"선박"}]},
+    {num:11,en:"More recent archaeological hypotheses have them transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen.",
+     kr:"더 최근의 고고학적 가설은 초대형 바구니에 청석을 담아 볼 베어링과 긴 홈 판자 조합 위에서 소가 끌어 운반했다고 본다.",
+     grammar:"<strong>have them transporting</strong>: 'have + 목적어 + v-ing'(사역 표현). Q4 정답(oxen).",
+     vocab:[{w:"hypothesis",pos:"n",kr:"가설"},{w:"wicker",pos:"adj",kr:"고리버들로 만든"},{w:"ball bearing",pos:"n",kr:"볼 베어링"},{w:"grooved",pos:"adj",kr:"홈이 파인"},{w:"plank",pos:"n",kr:"널판자"},{w:"oxen",pos:"n",kr:"소(복수)"}]},
+    {type:"para",label:"Para 5",role:"지질학적 이론 — 빙하"},
+    {num:12,en:"As early as the 1970s, geologists have been adding their voices to the debate over how Stonehenge came into being.",
+     kr:"1970년대부터 지질학자들은 스톤헨지가 어떻게 생겨났는지에 대한 논쟁에 자신들의 목소리를 더해왔다.",
+     grammar:"<strong>As early as</strong> = '이미 ~ 때부터'. <strong>have been adding</strong> = 현재완료 진행. <strong>come into being</strong> = '생겨나다, 탄생하다'.",
+     vocab:[{w:"geologist",pos:"n",kr:"지질학자"},{w:"debate",pos:"n",kr:"논쟁"},{w:"come into being",pos:"phrase",kr:"생겨나다, 탄생하다"}]},
+    {num:13,en:"Challenging the classic image of industrious builders pushing, carting, rolling or hauling giant stones from faraway Wales, some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain.",
+     kr:"멀리 웨일스에서 거대한 돌을 밀고, 수레로 나르고, 굴리고, 끌어온 부지런한 건설자들의 전통적인 이미지에 도전하며, 일부 과학자들은 청석을 솔즈베리 평원으로 운반한 것은 인간이 아닌 빙하였다고 제안했다.",
+     grammar:"<strong>Challenging ~</strong> = 분사구문(동시 행위). <strong>it was glaciers, not humans, that ~</strong> = 강조 구문(it ~ that 분열문). Q5 정답(glaciers).",
+     vocab:[{w:"industrious",pos:"adj",kr:"부지런한, 근면한"},{w:"glacier",pos:"n",kr:"빙하"},{w:"faraway",pos:"adj",kr:"먼, 멀리 있는"}]},
+    {num:14,en:"Most archaeologists have remained sceptical about this theory, however, wondering how the forces of nature could possibly have delivered the exact number of stones needed to complete the circle.",
+     kr:"그러나 대부분의 고고학자들은 이 이론에 회의적인 태도를 유지하며, 자연의 힘이 어떻게 원을 완성하는 데 필요한 정확한 수의 돌을 가져다줄 수 있었는지 의문을 품고 있다.",
+     grammar:"<strong>remain sceptical about</strong> = '~에 대해 회의적인 상태를 유지하다'. <strong>wondering</strong> = 분사구문. <strong>could possibly have delivered</strong> = 추측 강조.",
+     vocab:[{w:"sceptical",pos:"adj",kr:"회의적인"},{w:"forces of nature",pos:"n",kr:"자연의 힘"},{w:"possibly",pos:"adv",kr:"어떻게든, 혹시"}]},
+    {type:"para",label:"Para 6",role:"3단계 — 사암(사르센석)"},
+    {num:15,en:"The third phase of construction took place around 2000 BCE.",
+     kr:"건설의 3단계는 기원전 약 2000년에 이루어졌다.",
+     grammar:"<strong>took place</strong> = '이루어지다, 발생하다'(happen의 격식체).",
+     vocab:[{w:"take place",pos:"phrase",kr:"이루어지다, 발생하다"},{w:"BCE",pos:"abbr",kr:"기원전(Before Common Era)"}]},
+    {num:16,en:"At this point, sandstone slabs – known as 'sarsens' – were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge.",
+     kr:"이 시점에 사암 판(사르센이라고 알려짐)이 외부 초승달 또는 고리 형태로 배열되었고, 일부는 스톤헨지 중앙에 우뚝 서 있는 세 조각 구조물인 삼석문(트릴리톤)으로 조립되었다.",
+     grammar:"대시(–) = 동격 설명. 세미콜론(;) = 두 절 병렬. <strong>stand tall</strong> = '우뚝 서 있다'. Q9 TRUE 핵심(외부 + 중앙 모두).",
+     vocab:[{w:"sandstone slab",pos:"n",kr:"사암 판"},{w:"sarsen",pos:"n",kr:"사르센석(사암)"},{w:"crescent",pos:"n",kr:"초승달 모양"},{w:"trilithon",pos:"n",kr:"삼석문(세 개의 돌로 된 구조물)"}]},
+    {num:17,en:"Some 50 of these stones are now visible on the site, which may once have contained many more.",
+     kr:"현재 현장에서는 약 50개의 돌이 보이며, 한때는 훨씬 더 많았을 수 있다.",
+     grammar:"<strong>Some 50</strong> = 'approximately 50'. <strong>which may once have contained</strong> = 비제한적 관계절 + 과거 가능성 추측.",
+     vocab:[{w:"visible",pos:"adj",kr:"눈에 보이는"}]},
+    {num:18,en:"Radiocarbon dating has revealed that work continued at Stonehenge until roughly 1600 BCE, with the bluestones in particular being repositioned multiple times.",
+     kr:"방사성탄소 연대 측정에 따르면 작업은 기원전 약 1600년까지 계속되었으며, 특히 청석은 여러 차례 재배치되었다.",
+     grammar:"<strong>Radiocarbon dating</strong> = 방사성탄소 연대 측정. <strong>with ~ being repositioned</strong> = '~ 됨으로써'(독립분사구문). Q10 FALSE 핵심.",
+     vocab:[{w:"radiocarbon dating",pos:"n",kr:"방사성탄소 연대 측정"},{w:"reveal",pos:"v",kr:"밝히다"},{w:"reposition",pos:"v",kr:"재배치하다"},{w:"multiple times",pos:"adv",kr:"여러 차례"}]},
+    {type:"para",label:"Para 7",role:"건설자 — 드루이드 이론"},
+    {num:19,en:"But who were the builders of Stonehenge?",
+     kr:"그렇다면 스톤헨지를 건설한 사람들은 누구였을까?",
+     grammar:"수사의문문으로 단락 전환. 독자의 관심을 새 주제(건설자)로 끌어들이는 수법.",
+     vocab:[]},
+    {num:20,en:"In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids, who had important religious, judicial and political roles in Celtic society.",
+     kr:"17세기에 고고학자 John Aubrey는 스톤헨지가 드루이드교도들의 작품이라고 주장했는데, 이들은 켈트 사회에서 중요한 종교적·사법적·정치적 역할을 담당했다.",
+     grammar:"<strong>make the claim that</strong> = '~라고 주장하다'. <strong>who had</strong> = 비제한적 관계절(druids 추가 설명). Q6 정답(druids).",
+     vocab:[{w:"druid",pos:"n",kr:"드루이드(켈트 사제)"},{w:"judicial",pos:"adj",kr:"사법의"},{w:"Celtic",pos:"adj",kr:"켈트족의"}]},
+    {num:21,en:"This theory was widely popularized by the antiquarian William Stukeley, who had unearthed primitive graves at the site.",
+     kr:"이 이론은 유적지에서 원시 무덤을 발굴한 고물 수집가 William Stukeley에 의해 널리 대중화되었다.",
+     grammar:"<strong>popularize</strong> = '대중화하다'. <strong>antiquarian</strong> = '고물 수집가, 골동품 연구자'. <strong>unearthed</strong> = '발굴된'.",
+     vocab:[{w:"popularize",pos:"v",kr:"대중화하다"},{w:"antiquarian",pos:"n",kr:"고물 수집가"},{w:"unearth",pos:"v",kr:"발굴하다"}]},
+    {num:22,en:"Even today, people who identify as modern druids continue to gather at Stonehenge for the summer solstice.",
+     kr:"오늘날에도 현대 드루이드교도라고 자처하는 사람들이 하지 때 스톤헨지에 모인다.",
+     grammar:"<strong>identify as</strong> = '~로 자처하다, 정체화하다'. <strong>summer solstice</strong> = '하지(夏至)'.",
+     vocab:[{w:"identify as",pos:"phrase",kr:"~로 자처하다"},{w:"solstice",pos:"n",kr:"지점(至點); 하지/동지"}]},
+    {num:23,en:"However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region.",
+     kr:"그러나 20세기 중반, 방사성탄소 연대 측정으로 스톤헨지가 켈트족이 이 지역에 거주하기 1,000년 이상 전에 세워졌음이 밝혀졌다.",
+     grammar:"<strong>demonstrate</strong> = '(증거로) 입증하다'. <strong>inhabited</strong> = '거주했다'. Q11 FALSE 핵심: 20세기 발견이 Aubrey 주장을 지지하지 않고 오히려 반박함.",
+     vocab:[{w:"demonstrate",pos:"v",kr:"입증하다"},{w:"inhabit",pos:"v",kr:"거주하다, 서식하다"}]},
+    {type:"para",label:"Para 8",role:"복수 부족 이론"},
+    {num:24,en:"Many modern historians and archaeologists now agree that several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction.",
+     kr:"현대의 많은 역사학자와 고고학자들은 여러 다른 부족이 각각 다른 단계를 맡아 스톤헨지 건설에 기여했다는 데 동의한다.",
+     grammar:"<strong>distinct</strong> = '서로 다른, 별개의'. <strong>each undertaking</strong> = 독립분사구문. <strong>contribute to</strong> = '~에 기여하다'.",
+     vocab:[{w:"distinct",pos:"adj",kr:"서로 다른, 뚜렷한"},{w:"tribe",pos:"n",kr:"부족"},{w:"contribute to",pos:"phrasal v",kr:"~에 기여하다"}]},
+    {num:25,en:"Bones, tools and other artefacts found on the site seem to support this hypothesis.",
+     kr:"유적지에서 발견된 뼈, 도구 및 기타 유물들은 이 가설을 뒷받침하는 것으로 보인다.",
+     grammar:"<strong>found on the site</strong> = 과거분사구로 주어를 수식. <strong>seem to support</strong> = 추측 표현. Q12 TRUE 핵심.",
+     vocab:[{w:"artefact",pos:"n",kr:"유물, 인공물"},{w:"hypothesis",pos:"n",kr:"가설"}]},
+    {num:26,en:"The first stage was achieved by Neolithic agrarians who were likely to have been indigenous to the British Isles.",
+     kr:"첫 번째 단계는 영국 제도 원주민이었을 가능성이 높은 신석기 시대 농경인들에 의해 이루어졌다.",
+     grammar:"<strong>agrarian</strong> = '농경인'. <strong>indigenous to</strong> = '~의 원주민인'. <strong>likely to have been</strong> = 과거 가능성 추측.",
+     vocab:[{w:"agrarian",pos:"n",kr:"농경인"},{w:"indigenous",pos:"adj",kr:"원주민의, 토착의"}]},
+    {num:27,en:"Later, it is believed, groups with advanced tools and a more communal way of life left their mark on the site.",
+     kr:"이후에는 더 발전된 도구와 공동체적 생활 방식을 가진 집단들이 유적지에 자신들의 흔적을 남긴 것으로 믿어진다.",
+     grammar:"<strong>it is believed</strong> = 삽입 수동 표현. <strong>leave one's mark on</strong> = '~에 흔적을 남기다'. <strong>communal</strong> = '공동체적인'.",
+     vocab:[{w:"communal",pos:"adj",kr:"공동체적인"},{w:"leave one's mark on",pos:"phrase",kr:"~에 흔적을 남기다"}]},
+    {num:28,en:"Some believe that they were immigrants from the European continent, while others maintain that they were probably native Britons, descended from the original builders.",
+     kr:"일부는 그들이 유럽 대륙에서 온 이민자라고 믿는 반면, 다른 이들은 원래 건설자들의 후손인 원주민 영국인이었을 것이라고 주장한다.",
+     grammar:"<strong>while</strong> = 대조 접속사. <strong>maintain</strong> = '주장하다'(격식체). <strong>descended from</strong> = '~의 후손인'.",
+     vocab:[{w:"immigrant",pos:"n",kr:"이민자"},{w:"maintain",pos:"v",kr:"주장하다"},{w:"descended from",pos:"phrase",kr:"~의 후손인"}]},
+    {type:"para",label:"Para 9",role:"목적 — 매장지"},
+    {num:29,en:"If the facts surrounding the architects and construction of Stonehenge remain shadowy at best, the purpose of the striking monument is even more of a mystery.",
+     kr:"스톤헨지의 설계자와 건설에 관한 사실이 기껏해야 불분명한 상태라면, 이 인상적인 기념물의 목적은 더욱 수수께끼다.",
+     grammar:"<strong>shadowy at best</strong> = '기껏해야 불분명한'. <strong>even more of a mystery</strong> = '훨씬 더 큰 수수께끼'. <strong>striking</strong> = '인상적인'.",
+     vocab:[{w:"shadowy",pos:"adj",kr:"불분명한, 모호한"},{w:"at best",pos:"phrase",kr:"기껏해야"},{w:"striking",pos:"adj",kr:"인상적인, 두드러진"}]},
+    {num:30,en:"While there is consensus among the majority of modern scholars that Stonehenge once served the function of burial ground, they have yet to determine what other purposes it had.",
+     kr:"대부분의 현대 학자들은 스톤헨지가 매장지 역할을 했다는 데 의견이 일치하지만, 어떤 다른 목적이 있었는지는 아직 밝혀내지 못하고 있다.",
+     grammar:"<strong>consensus</strong> = '합의, 일치'. <strong>have yet to determine</strong> = '아직 ~을 밝혀내지 못하다'. Q7 정답(burial).",
+     vocab:[{w:"consensus",pos:"n",kr:"합의, 의견 일치"},{w:"burial ground",pos:"n",kr:"매장지"},{w:"have yet to",pos:"phrase",kr:"아직 ~하지 못하다"}]},
+    {type:"para",label:"Para 10",role:"목적 — 달력 이론"},
+    {num:31,en:"In the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar, with different points corresponding to astrological phenomena such as solstices, equinoxes and eclipses occurring at different times of the year.",
+     kr:"1960년대에 천문학자 Gerald Hawkins는 거석 군이 달력의 형태로 기능했으며, 각 지점이 하지·동지, 춘분·추분, 일식 같은 천문 현상에 해당한다고 제안했다.",
+     grammar:"<strong>with different points corresponding to</strong> = 독립분사구문. <strong>solstice/equinox/eclipse</strong>는 IELTS 빈출 천문 용어. Q8 정답(calendar).",
+     vocab:[{w:"megalithic",pos:"adj",kr:"거석의"},{w:"correspond to",pos:"phrasal v",kr:"~에 해당하다"},{w:"solstice",pos:"n",kr:"지점(하지/동지)"},{w:"equinox",pos:"n",kr:"분점(춘분/추분)"},{w:"eclipse",pos:"n",kr:"일식, 월식"}]},
+    {num:32,en:"While his theory has received a considerable amount of attention over the decades, critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events or that England's dense cloud cover would have obscured their view of the skies.",
+     kr:"그의 이론은 수십 년 동안 상당한 주목을 받아왔지만, 비평가들은 스톤헨지 건설자들이 이러한 현상을 예측할 지식이 없었거나 잉글랜드의 짙은 구름이 하늘을 가렸을 것이라고 주장한다.",
+     grammar:"<strong>While</strong> = 양보(비록 ~이지만). <strong>critics maintain that</strong> 뒤에 두 개의 that절 병렬. <strong>obscure</strong> = '가리다, 모호하게 하다'. Q13 NOT GIVEN 핵심(critics가 '주로 천문학자'라는 내용 없음).",
+     vocab:[{w:"considerable",pos:"adj",kr:"상당한"},{w:"lacked",pos:"v",kr:"~이 부족했다"},{w:"dense",pos:"adj",kr:"짙은, 밀집한"},{w:"obscure",pos:"v",kr:"가리다, 모호하게 하다"}]},
+    {type:"para",label:"Para 11",role:"목적 — 치유 장소 이론"},
+    {num:33,en:"More recently, signs of illness and injury in the human remains unearthed at Stonehenge led a group of British archaeologists to speculate that it was considered a place of healing, perhaps because bluestones were thought to have curative powers.",
+     kr:"더 최근에는, 스톤헨지에서 발굴된 인골에서 발견된 질병과 부상의 흔적으로 인해 영국 고고학자 집단이 이곳이 치유의 장소로 여겨졌으며, 아마도 청석에 치유력이 있다고 생각되었기 때문일 것이라고 추측했다.",
+     grammar:"<strong>lead A to speculate</strong> = 'A가 ~을 추측하게 하다'. <strong>curative powers</strong> = '치유력'. <strong>were thought to have</strong> = 수동 추측.",
+     vocab:[{w:"remains",pos:"n",kr:"유해, 유골"},{w:"speculate",pos:"v",kr:"추측하다"},{w:"healing",pos:"n",kr:"치유"},{w:"curative",pos:"adj",kr:"치유력이 있는"}]}
+  ],
+  allVocab:[
+    {w:"erect",pos:"v",pron:"/ɪˈrekt/",kr:"세우다, 건설하다",ex:"It took 1,500 years to <em>erect</em> Stonehenge.",syn:["build","construct"]},
+    {w:"prehistoric",pos:"adj",pron:"/ˌpriːhɪˈstɒrɪk/",kr:"선사 시대의",ex:"Stonehenge is a <em>prehistoric</em> monument.",syn:["ancient","primitive"]},
+    {w:"hoist",pos:"v",pron:"/hɔɪst/",kr:"들어 올리다",ex:"Builders <em>hoisted</em> bluestones into standing positions.",syn:["lift","raise"]},
+    {w:"haul",pos:"v",pron:"/hɔːl/",kr:"운반하다, 끌다",ex:"How did they <em>haul</em> four-ton boulders over 300 km?",syn:["drag","transport","lug"]},
+    {w:"glacier",pos:"n",pron:"/ˈɡlæsiə/",kr:"빙하",ex:"Some scientists believe <em>glaciers</em> moved the bluestones.",syn:["ice sheet"]},
+    {w:"sceptical",pos:"adj",pron:"/ˈskeptɪkl/",kr:"회의적인",ex:"Most archaeologists remained <em>sceptical</em> about the glacier theory.",syn:["doubtful","dubious"]},
+    {w:"trilithon",pos:"n",pron:"/ˈtrɪlɪθɒn/",kr:"삼석문(돌 3개로 된 구조물)",ex:"<em>Trilithons</em> stand tall in the centre of Stonehenge.",syn:[]},
+    {w:"radiocarbon dating",pos:"n",pron:"",kr:"방사성탄소 연대 측정",ex:"<em>Radiocarbon dating</em> showed Stonehenge predates the Celts.",syn:["carbon dating"]},
+    {w:"druid",pos:"n",pron:"/ˈdruːɪd/",kr:"드루이드(켈트 사제)",ex:"Aubrey claimed <em>druids</em> built Stonehenge.",syn:[]},
+    {w:"indigenous",pos:"adj",pron:"/ɪnˈdɪdʒənəs/",kr:"원주민의, 토착의",ex:"Neolithic builders were likely <em>indigenous</em> to the British Isles.",syn:["native","local"]},
+    {w:"consensus",pos:"n",pron:"/kənˈsensəs/",kr:"합의, 의견 일치",ex:"There is <em>consensus</em> that Stonehenge was a burial ground.",syn:["agreement","accord"]},
+    {w:"megalithic",pos:"adj",pron:"/ˌmeɡəˈlɪθɪk/",kr:"거석의",ex:"The <em>megalithic</em> stones form a calendar-like structure.",syn:["monumental"]},
+    {w:"equinox",pos:"n",pron:"/ˈiːkwɪnɒks/",kr:"춘분/추분",ex:"Stonehenge aligns with solstices and <em>equinoxes</em>.",syn:[]},
+    {w:"curative",pos:"adj",pron:"/ˈkjʊərətɪv/",kr:"치유력이 있는",ex:"Bluestones were thought to have <em>curative</em> powers.",syn:["healing","therapeutic"]}
+  ],
+  tfng:[
+    {qNum:9,stmt:"During the third phase of construction, sandstone slabs were placed in both the outer areas and the middle of the Stonehenge site.",correct:"TRUE",mine:"",
+     evPara:"Para 6",ev:"sandstone slabs were arranged into <mark>an outer crescent or ring</mark>; some were assembled into… trilithons <mark>that stand tall in the centre of Stonehenge</mark>.",
+     why:"외부(outer crescent) AND 중앙(centre)에 배치 → 진술 내용과 일치 → TRUE.",trap:""},
+    {qNum:10,stmt:"There is scientific proof that the bluestones stood in the same spot until approximately 1600 BCE.",correct:"FALSE",mine:"",
+     evPara:"Para 6",ev:"Radiocarbon dating has revealed that work continued… with the bluestones in particular <mark>being repositioned multiple times</mark>.",
+     why:"청석은 여러 차례 재배치됨 → '같은 자리에 있었다'는 진술과 반대 → FALSE.",
+     trap:"<strong>함정:</strong> '1600 BCE'라는 연도는 맞지만, '같은 자리'라는 내용은 지문이 부정. 숫자에 현혹되지 말 것."},
+    {qNum:11,stmt:"John Aubrey's claim about Stonehenge was supported by 20th-century findings.",correct:"FALSE",mine:"",
+     evPara:"Para 7",ev:"in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood <mark>more than 1,000 years before the Celts inhabited the region</mark>.",
+     why:"20세기 발견은 드루이드(켈트) 이론을 지지한 것이 아니라 반박(disprove)함 → FALSE.",
+     trap:"<strong>함정:</strong> '20th century'라는 시간이 일치하지만 내용은 정반대. '지지(supported)'와 '반박(demonstrated the opposite)'을 혼동하지 말 것."},
+    {qNum:12,stmt:"Objects discovered at Stonehenge seem to indicate that it was constructed by a number of different groups of people.",correct:"TRUE",mine:"",
+     evPara:"Para 8",ev:"Bones, tools and other artefacts found on the site <mark>seem to support this hypothesis</mark>. [hypothesis = several distinct tribes contributed]",
+     why:"유물이 복수 부족 가설을 지지 → 여러 다른 집단이 건설 → TRUE.",trap:""},
+    {qNum:13,stmt:"Criticism of Gerald Hawkins' theory about Stonehenge has come mainly from other astronomers.",correct:"NOT GIVEN",mine:"",
+     evPara:"Para 10",ev:"critics maintain that Stonehenge's builders probably lacked the knowledge… (비평가들이 누구인지 직업 명시 없음)",
+     why:"지문에 비평가가 '주로 천문학자'라는 내용이 없음 → NOT GIVEN.",
+     trap:"<strong>함정:</strong> Hawkins가 천문학자이므로 비평가도 천문학자일 것이라고 추론하면 오답. 지문에 명시되지 않은 내용은 NOT GIVEN."}
+  ],
+  paragraphs:[
+    {lbl:"P1",role:"도입",desc:"스톤헨지: 약 1,500년에 걸쳐 건설된 선사 시대 원형 기념물."},
+    {lbl:"P2",role:"1단계 (도랑)",desc:"신석기 영국인이 사슴 뿔 도구로 도랑·둑(헨지) 건설. 원 안 구덩이에 목재 기둥 추정."},
+    {lbl:"P3",role:"2단계 (청석)",desc:"웨일스에서 약 80개 청석 운반. 어떻게 운반했는지가 핵심 미스터리."},
+    {lbl:"P4",role:"고고학적 운반 이론",desc:"나무 썰매·롤러, 뗏목, 초대형 바구니+소 등 다양한 이론."},
+    {lbl:"P5",role:"지질학적 이론",desc:"빙하 운반설. 대부분의 고고학자들은 회의적."},
+    {lbl:"P6",role:"3단계 (사르센)",desc:"2000 BCE경 사암(사르센) 배치. 방사성탄소 측정으로 1600 BCE까지 작업 확인."},
+    {lbl:"P7",role:"건설자 — 드루이드 이론",desc:"17세기 드루이드 이론. 그러나 20세기 연대 측정이 반박."},
+    {lbl:"P8",role:"복수 부족 이론",desc:"신석기 농경인 + 이후 다른 집단들. 유물이 근거."},
+    {lbl:"P9",role:"목적 — 매장지",desc:"대부분 학자가 매장지 기능에 동의. 다른 목적은 불확실."},
+    {lbl:"P10",role:"목적 — 달력 이론",desc:"Hawkins의 천문 달력 이론. 비평가: 지식 부족 + 흐린 날씨 문제."},
+    {lbl:"P11",role:"목적 — 치유 장소",desc:"인골의 병·부상 흔적 → 치유 장소 추측. 청석에 치유력 믿음."}
+  ],
+  summary:"Stonehenge — 선사 시대 기념물의 건설 단계(도랑→청석→사르센), 운반 이론(고고학/지질학), 건설자(복수 부족), 목적(매장지/달력/치유)을 단계별로 설명하는 지문."
+},
+
+
+"C18_T2_P2": {
+  title:"Cambridge 18 · Test 2 · Passage 2",
+  topic:"Living with Artificial Intelligence",
+  qTypes:["Multiple Choice","Yes / No / Not Given","Summary Completion"],
+  sentences:[
+    {type:"para",label:"Para 1",role:"AI의 급속한 발전"},
+    {num:1,en:"This has been the decade of AI, with one astonishing feat after another.",
+     kr:"이 시대는 AI의 10년으로, 놀라운 업적이 끊임없이 이어지고 있다.",
+     grammar:"<strong>one ~ after another</strong> = '잇달아, 계속해서'. <strong>feat</strong> = '위업, 업적'.",
+     vocab:[{w:"feat",pos:"n",kr:"위업, 업적"},{w:"astonishing",pos:"adj",kr:"놀라운"}]},
+    {num:2,en:"A chess-playing AI that can defeat not only all human chess players, but also all previous human-programmed chess machines, after learning the game in just four hours?",
+     kr:"단 4시간 만에 게임을 학습한 후 모든 인간 체스 플레이어뿐 아니라 이전의 모든 인간이 프로그래밍한 체스 기계까지 이기는 AI?",
+     grammar:"수사의문문. <strong>not only A but also B</strong> = 'A뿐 아니라 B도'. 인상적인 예시로 단락을 시작.",
+     vocab:[{w:"defeat",pos:"v",kr:"이기다, 물리치다"}]},
+    {num:3,en:"That's yesterday's news, what's next?",
+     kr:"그건 이미 지난 이야기고, 다음은 뭘까?",
+     grammar:"구어체 표현으로 AI 발전 속도가 매우 빠름을 강조.",vocab:[]},
+    {num:4,en:"True, these prodigious accomplishments are all in so-called narrow AI, where machines perform highly specialised tasks.",
+     kr:"맞다, 이 놀라운 성과들은 모두 기계가 고도로 특화된 작업을 수행하는 소위 협소 AI에 국한된다.",
+     grammar:"<strong>True,</strong> = 양보 시작('물론 ~이긴 하지만'). <strong>so-called</strong> = '소위'. <strong>where</strong> = 관계부사.",
+     vocab:[{w:"prodigious",pos:"adj",kr:"놀라운, 엄청난"},{w:"narrow AI",pos:"n",kr:"협소(좁은) AI"},{w:"specialised",pos:"adj",kr:"특화된"}]},
+    {num:5,en:"But many experts believe this restriction is very temporary.",
+     kr:"그러나 많은 전문가들은 이러한 제한이 매우 일시적이라고 믿는다.",
+     vocab:[{w:"restriction",pos:"n",kr:"제한"},{w:"temporary",pos:"adj",kr:"일시적인"}]},
+    {num:6,en:"By mid-century, we may have artificial general intelligence (AGI) – machines that can achieve human-level performance on the full range of tasks that we ourselves can tackle.",
+     kr:"금세기 중반까지 우리는 인공 일반 지능(AGI), 즉 우리 스스로 해결할 수 있는 모든 범위의 작업에서 인간 수준의 성능을 달성할 수 있는 기계를 갖게 될 수 있다.",
+     grammar:"대시(–) = 동격. <strong>tackle</strong> = '(문제를) 처리하다'. <strong>full range of</strong> = '모든 범위의'. Q14 핵심.",
+     vocab:[{w:"artificial general intelligence",pos:"n",kr:"인공 일반 지능(AGI)"},{w:"tackle",pos:"v",kr:"해결하다, 처리하다"},{w:"mid-century",pos:"n",kr:"금세기 중반"}]},
+    {type:"para",label:"Para 2",role:"AI의 잠재적 한계 — 물리적 제약"},
+    {num:7,en:"If so, there's little reason to think it will stop there.",
+     kr:"그렇다면 거기서 멈출 이유가 거의 없다.",
+     grammar:"<strong>If so</strong> = '만약 그렇다면'. <strong>little reason to</strong> = '~할 이유가 거의 없다'.",
+     vocab:[]},
+    {num:8,en:"Machines will be free of many of the physical constraints on human intelligence.",
+     kr:"기계는 인간 지능에 가해지는 많은 물리적 제약에서 자유로울 것이다.",
+     grammar:"<strong>be free of</strong> = '~에서 자유롭다'. <strong>constraints</strong> = '제약'.",
+     vocab:[{w:"constraints",pos:"n",kr:"제약, 제한"},{w:"physical",pos:"adj",kr:"물리적인"}]},
+    {num:9,en:"Our brains run at slow biochemical processing speeds on the power of a light bulb, and their size is restricted by the dimensions of the human birth canal.",
+     kr:"우리의 뇌는 전구 하나의 전력으로 느린 생화학적 처리 속도로 작동하며, 크기는 출산 시 산도의 크기에 의해 제한된다.",
+     grammar:"<strong>run at</strong> = '~의 속도로 작동하다'. <strong>birth canal</strong> = '산도(産道)'. Q15 핵심(인간의 한계 설명).",
+     vocab:[{w:"biochemical",pos:"adj",kr:"생화학적인"},{w:"birth canal",pos:"n",kr:"산도(産道)"},{w:"restricted",pos:"adj",kr:"제한된"}]},
+    {num:10,en:"It is remarkable what they accomplish, given these handicaps.",
+     kr:"이러한 장애에도 불구하고 우리 뇌가 이루는 것은 놀랍다.",
+     grammar:"<strong>It is remarkable what ~</strong>: 외치 구문(what절이 진주어). <strong>given</strong> = '~을 감안하면'.",
+     vocab:[{w:"remarkable",pos:"adj",kr:"놀라운"},{w:"handicap",pos:"n",kr:"장애, 불리한 조건"}]},
+    {num:11,en:"But they may be as far from the physical limits of thought as our eyes are from the incredibly powerful Webb Space Telescope.",
+     kr:"하지만 우리 뇌는 우리 눈이 강력한 웹 우주 망원경에서 멀리 있듯이, 사고의 물리적 한계에서 그만큼 멀리 있을 수 있다.",
+     grammar:"<strong>as far from A as B is from C</strong> = 비교 구조. 비유를 통해 AI의 잠재력이 매우 크다는 것을 시사.",
+     vocab:[{w:"physical limits",pos:"n",kr:"물리적 한계"}]},
+    {type:"para",label:"Para 3",role:"King Midas 비유 — 목표 설정의 중요성"},
+    {num:12,en:"Once machines are better than us at designing even smarter machines, progress towards these limits could accelerate.",
+     kr:"기계가 더 똑똑한 기계를 설계하는 데 우리보다 나아지면, 이러한 한계를 향한 진보가 가속화될 수 있다.",
+     vocab:[{w:"accelerate",pos:"v",kr:"가속화되다"}]},
+    {num:13,en:"What would this mean for us?",
+     kr:"이것은 우리에게 무엇을 의미할까?",grammar:"수사의문문.",vocab:[]},
+    {num:14,en:"Could we ensure a safe and worthwhile coexistence with such machines?",
+     kr:"우리는 그러한 기계와 안전하고 가치 있는 공존을 보장할 수 있을까?",
+     vocab:[{w:"ensure",pos:"v",kr:"보장하다"},{w:"worthwhile",pos:"adj",kr:"가치 있는"},{w:"coexistence",pos:"n",kr:"공존"}]},
+    {num:15,en:"On the plus side, AI is already useful and profitable for many things, and super AI might be expected to be super useful and super profitable.",
+     kr:"긍정적인 면에서, AI는 이미 많은 분야에서 유용하고 수익성이 있으며, 슈퍼 AI는 매우 유용하고 매우 수익성이 높을 것으로 기대된다.",
+     vocab:[{w:"on the plus side",pos:"phrase",kr:"긍정적인 면에서"},{w:"profitable",pos:"adj",kr:"수익성 있는"}]},
+    {num:16,en:"But the more powerful AI becomes, the more important it will be to specify its goals with great care.",
+     kr:"하지만 AI가 강력해질수록, 그 목표를 매우 신중하게 명시하는 것이 더욱 중요해질 것이다.",
+     grammar:"<strong>the more ~, the more ~</strong> = 비례 비교 구문.",
+     vocab:[{w:"specify",pos:"v",kr:"명시하다, 구체적으로 말하다"}]},
+    {num:17,en:"Folklore is full of tales of people who ask for the wrong thing, with disastrous consequences – King Midas, for example, might have wished that everything he touched turned to gold, but didn't really intend this to apply to his breakfast.",
+     kr:"민간 전설에는 잘못된 것을 요구해 재앙적인 결과를 낳은 사람들의 이야기가 가득하다. 예를 들어, King Midas는 자신이 만지는 모든 것이 금이 되길 바랐지만, 정말로 이것이 자신의 아침 식사에도 적용되길 의도하지는 않았다.",
+     grammar:"<strong>might have wished</strong> = 과거 추측. King Midas 비유는 '목표를 잘못 설정하면 재앙'을 시사. Q16 핵심.",
+     vocab:[{w:"folklore",pos:"n",kr:"민간 전설"},{w:"disastrous",pos:"adj",kr:"재앙적인"},{w:"intend",pos:"v",kr:"의도하다"},{w:"apply to",pos:"phrasal v",kr:"~에 적용되다"}]},
+    {type:"para",label:"Para 4",role:"인간 친화적 AI — 핵심 과제"},
+    {num:18,en:"So we need to create powerful AI machines that are 'human-friendly' – that have goals reliably aligned with our own values.",
+     kr:"따라서 우리는 우리의 가치와 안정적으로 일치하는 목표를 가진, 즉 '인간 친화적인' 강력한 AI 기계를 만들어야 한다.",
+     grammar:"<strong>aligned with</strong> = '~와 일치하다, 정렬되다'. <strong>reliably</strong> = '안정적으로, 믿을 수 있게'.",
+     vocab:[{w:"reliably",pos:"adv",kr:"안정적으로"},{w:"aligned with",pos:"phrase",kr:"~와 일치하는"}]},
+    {num:19,en:"One thing that makes this task difficult is that we are far from reliably human-friendly ourselves.",
+     kr:"이 과제를 어렵게 만드는 것 중 하나는 우리 자신이 안정적으로 인간 친화적이지 않다는 것이다.",
+     grammar:"<strong>far from</strong> = '~와 거리가 멀다, 전혀 ~하지 않다'. Q17 핵심.",
+     vocab:[{w:"far from",pos:"phrase",kr:"~와 거리가 멀다"}]},
+    {num:20,en:"We do many terrible things to each other and to many other creatures with whom we share the planet.",
+     kr:"우리는 서로에게, 그리고 우리가 지구를 공유하는 많은 다른 생물들에게 많은 끔찍한 일을 저지른다.",
+     grammar:"<strong>with whom we share</strong> = 전치사+관계대명사(격식체). <strong>creatures</strong> = '생물, 피조물'.",
+     vocab:[{w:"creature",pos:"n",kr:"생물, 피조물"}]},
+    {num:21,en:"If superintelligent machines don't do a lot better than us, we'll be in deep trouble.",
+     kr:"초지능 기계가 우리보다 훨씬 낫지 않다면, 우리는 큰 곤경에 처할 것이다.",
+     vocab:[{w:"superintelligent",pos:"adj",kr:"초지능의"},{w:"in deep trouble",pos:"phrase",kr:"큰 곤경에 처한"}]},
+    {num:22,en:"We'll have powerful new intelligence amplifying the dark sides of our own fallible natures.",
+     kr:"우리는 우리의 오류를 범하기 쉬운 본성의 어두운 면을 증폭시키는 강력한 새 지능을 갖게 될 것이다.",
+     grammar:"<strong>amplifying</strong> = 현재분사(결과 분사구문). <strong>fallible</strong> = '오류를 범하기 쉬운'.",
+     vocab:[{w:"amplify",pos:"v",kr:"증폭시키다"},{w:"fallible",pos:"adj",kr:"오류를 범하기 쉬운"},{w:"nature",pos:"n",kr:"본성"}]},
+    {type:"para",label:"Para 5",role:"도덕적 AI의 필요성"},
+    {num:23,en:"For safety's sake, then, we want the machines to be ethically as well as cognitively superhuman.",
+     kr:"안전을 위해, 우리는 기계가 인지적으로뿐만 아니라 윤리적으로도 초인간적이길 원한다.",
+     grammar:"<strong>for safety's sake</strong> = '안전을 위해'. <strong>ethically as well as cognitively</strong> = '인지적으로뿐만 아니라 윤리적으로도'. Q18 핵심.",
+     vocab:[{w:"ethically",pos:"adv",kr:"윤리적으로"},{w:"cognitively",pos:"adv",kr:"인지적으로"},{w:"superhuman",pos:"adj",kr:"초인간적인"}]},
+    {num:24,en:"We want them to aim for the moral high ground, not for the troughs in which many of us spend some of our time.",
+     kr:"우리는 그들이 도덕적 고지를 목표로 하길 원하며, 우리 중 많은 사람이 일부 시간을 보내는 낮은 곳이 아니길 바란다.",
+     grammar:"<strong>aim for</strong> = '~을 목표로 하다'. <strong>moral high ground</strong> = '도덕적 우위'. <strong>trough</strong> = '낮은 곳, 저점'.",
+     vocab:[{w:"aim for",pos:"phrasal v",kr:"~을 목표로 하다"},{w:"moral high ground",pos:"n",kr:"도덕적 우위"},{w:"trough",pos:"n",kr:"낮은 곳, 저점"}]},
+    {num:25,en:"Luckily they'll be smart enough for the job.",
+     kr:"다행히도 그들은 그 일을 하기에 충분히 똑똑할 것이다.",vocab:[]},
+    {num:26,en:"If there are routes to the moral high ground, they'll be better than us at finding them, and steering us in the right direction.",
+     kr:"도덕적 고지로 가는 길이 있다면, 기계는 그 길을 찾고 우리를 올바른 방향으로 이끄는 데 우리보다 나을 것이다.",
+     vocab:[{w:"route",pos:"n",kr:"길, 경로"},{w:"steer",pos:"v",kr:"이끌다, 조종하다"}]},
+    {type:"para",label:"Para 6",role:"두 가지 문제 — 출발점과 목적지"},
+    {num:27,en:"However, there are two big problems with this utopian vision.",
+     kr:"그러나 이 유토피아적 비전에는 두 가지 큰 문제가 있다.",
+     vocab:[{w:"utopian",pos:"adj",kr:"유토피아적인"},{w:"vision",pos:"n",kr:"비전, 전망"}]},
+    {num:28,en:"One is how we get the machines started on the journey, the other is what it would mean to reach this destination.",
+     kr:"하나는 기계를 어떻게 그 여정에 시작시키느냐이고, 다른 하나는 이 목적지에 도달한다는 것이 무엇을 의미하는지이다.",
+     vocab:[{w:"destination",pos:"n",kr:"목적지"}]},
+    {num:29,en:"The 'getting started' problem is that we need to tell the machines what they're looking for with sufficient clarity that we can be confident they will find it – whatever 'it' actually turns out to be.",
+     kr:"'시작' 문제는 기계에게 무엇을 찾아야 하는지 충분히 명확하게 알려주어야 한다는 것이다.",
+     grammar:"<strong>with sufficient clarity that</strong> = '충분히 명확하게 하여'. <strong>whatever</strong> = 복합관계대명사('~이 무엇이든').",
+     vocab:[{w:"sufficient",pos:"adj",kr:"충분한"},{w:"clarity",pos:"n",kr:"명확성"}]},
+    {num:30,en:"This won't be easy, given that we are tribal creatures and conflicted about the ideals ourselves.",
+     kr:"우리가 부족적인 존재이고 이상 자체에 대해서도 갈등을 겪고 있다는 점을 감안하면, 이는 쉽지 않을 것이다.",
+     grammar:"<strong>given that</strong> = '~을 감안하면'. <strong>tribal</strong> = '부족적인'. <strong>conflicted</strong> = '갈등하는'. Q19 핵심.",
+     vocab:[{w:"tribal",pos:"adj",kr:"부족적인"},{w:"conflicted",pos:"adj",kr:"갈등하는"}]},
+    {num:31,en:"We often ignore the suffering of strangers, and even contribute to it, at least indirectly.",
+     kr:"우리는 종종 낯선 사람들의 고통을 무시하고, 심지어 적어도 간접적으로는 그것에 기여하기도 한다.",
+     vocab:[{w:"indirectly",pos:"adv",kr:"간접적으로"}]},
+    {num:32,en:"How then, do we point machines in the direction of something better?",
+     kr:"그렇다면 어떻게 기계를 더 나은 방향으로 이끌 수 있을까?",grammar:"수사의문문.",vocab:[]},
+    {type:"para",label:"Para 7",role:"목적지 문제 — 자율성 상실"},
+    {num:33,en:"As for the 'destination' problem, we might, by putting ourselves in the hands of these moral guides and gatekeepers, be sacrificing our own autonomy – an important part of what makes us human.",
+     kr:"'목적지' 문제에 대해서는, 이러한 도덕적 안내자와 문지기의 손에 우리 자신을 맡김으로써 우리의 자율성, 즉 우리를 인간답게 만드는 중요한 부분을 희생하고 있을 수 있다.",
+     grammar:"<strong>As for</strong> = '~에 관해서는'. <strong>putting ourselves in the hands of</strong> = '~의 손에 맡기다'. 대시(–) = 동격. Q20 YES 핵심.",
+     vocab:[{w:"gatekeeper",pos:"n",kr:"문지기, 통제자"},{w:"sacrifice",pos:"v",kr:"희생하다"},{w:"autonomy",pos:"n",kr:"자율성"}]},
+    {num:34,en:"Machines who are better than us at sticking to the moral high ground may be expected to discourage some of the lapses we presently take for granted.",
+     kr:"도덕적 고지를 지키는 데 우리보다 나은 기계는 우리가 현재 당연시하는 일부 일탈을 억제할 것으로 예상된다.",
+     grammar:"<strong>stick to</strong> = '~을 고수하다'. <strong>lapse</strong> = '(도덕적) 일탈'. <strong>take for granted</strong> = '당연시하다'.",
+     vocab:[{w:"stick to",pos:"phrasal v",kr:"~을 고수하다"},{w:"lapse",pos:"n",kr:"일탈, 실수"},{w:"take for granted",pos:"phrase",kr:"당연시하다"}]},
+    {num:35,en:"We might lose our freedom to discriminate in favour of our own communities, for example.",
+     kr:"예를 들어, 우리는 자신의 공동체를 편애할 자유를 잃을 수도 있다.",
+     grammar:"<strong>discriminate in favour of</strong> = '~를 편애하다'. Q20 YES 핵심(communities 언급).",
+     vocab:[{w:"discriminate",pos:"v",kr:"차별하다, 편애하다"},{w:"in favour of",pos:"phrase",kr:"~에 유리하게, ~를 지지하여"}]},
+    {type:"para",label:"Para 8",role:"자유 제한 — 긍정과 부정"},
+    {num:36,en:"Loss of freedom to behave badly isn't always a bad thing, of course: denying ourselves the freedom to put children to work in factories, or to smoke in restaurants are signs of progress.",
+     kr:"물론 나쁘게 행동할 자유의 상실이 항상 나쁜 것은 아니다. 아이들을 공장에서 일하게 할 자유나 식당에서 흡연할 자유를 스스로 박탈하는 것은 진보의 표시다.",
+     grammar:"콜론(:) 뒤 구체적 예시. <strong>denying ourselves</strong> = 재귀대명사 강조.",
+     vocab:[{w:"deny",pos:"v",kr:"박탈하다"},{w:"signs of progress",pos:"n",kr:"진보의 표시"}]},
+    {num:37,en:"But are we ready for ethical silicon police limiting our options?",
+     kr:"하지만 우리는 우리의 선택지를 제한하는 윤리적 실리콘 경찰을 받아들일 준비가 되어 있을까?",
+     grammar:"수사의문문. <strong>silicon police</strong> = AI 경찰(비유적). Q21 NOT GIVEN 핵심.",
+     vocab:[{w:"ethical",pos:"adj",kr:"윤리적인"},{w:"silicon",pos:"n",kr:"실리콘"}]},
+    {num:38,en:"They might be so good at doing it that we won't notice them; but few of us are likely to welcome such a future.",
+     kr:"기계가 그 일을 너무 잘해서 우리가 알아채지 못할 수도 있지만, 우리 중 그런 미래를 환영할 사람은 거의 없을 것이다.",
+     grammar:"<strong>so ~ that</strong> = 결과 구문. <strong>few of us are likely to</strong> = '우리 중 ~할 사람은 거의 없다'. Q22 NO 핵심.",
+     vocab:[{w:"notice",pos:"v",kr:"알아채다"},{w:"welcome",pos:"v",kr:"환영하다"}]},
+    {type:"para",label:"Para 9",role:"NHS 사례 — 현재의 AI"},
+    {num:39,en:"These issues might seem far-fetched, but they are to some extent already here.",
+     kr:"이러한 문제들이 황당하게 보일 수 있지만, 어느 정도는 이미 현실에 존재한다.",
+     vocab:[{w:"far-fetched",pos:"adj",kr:"황당한, 억지스러운"},{w:"to some extent",pos:"phrase",kr:"어느 정도는"}]},
+    {num:40,en:"AI already has some input into how resources are used in our National Health Service (NHS) here in the UK, for example.",
+     kr:"예를 들어, AI는 이미 영국 국민보건서비스(NHS)에서 자원이 어떻게 사용되는지에 일부 영향을 미치고 있다.",
+     grammar:"Q24 정답(available resources/resources) 핵심.",
+     vocab:[{w:"input into",pos:"phrase",kr:"~에 영향을 미치다, 기여하다"},{w:"resources",pos:"n",kr:"자원"}]},
+    {num:41,en:"If it was given a greater role, it might do so much more efficiently than humans can manage, and act in the interests of taxpayers and those who use the health system.",
+     kr:"더 큰 역할이 주어진다면, 인간이 관리할 수 있는 것보다 훨씬 효율적으로 수행하고, 납세자와 보건 시스템 이용자의 이익을 위해 행동할 수 있다.",
+     vocab:[{w:"efficiently",pos:"adv",kr:"효율적으로"},{w:"taxpayer",pos:"n",kr:"납세자"}]},
+    {num:42,en:"However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy.",
+     kr:"그러나 우리는 일부 인간(예: 고위 의사들)으로부터 그들이 현재 누리는 통제권을 빼앗게 될 것이다.",
+     grammar:"<strong>deprive A of B</strong> = 'A에게서 B를 빼앗다'. Q25 정답(medical practitioners), Q26 정답(professional authority) 핵심.",
+     vocab:[{w:"deprive A of B",pos:"phrase",kr:"A에게서 B를 빼앗다"},{w:"senior",pos:"adj",kr:"고위의, 선임의"}]},
+    {num:43,en:"Since we'd want to ensure that people are treated equally and that policies are fair, the goals of AI would need to be specified correctly.",
+     kr:"사람들이 평등하게 대우받고 정책이 공정하도록 보장하려면, AI의 목표를 올바르게 명시해야 할 것이다.",
+     vocab:[{w:"equally",pos:"adv",kr:"평등하게"},{w:"policies",pos:"n",kr:"정책"}]},
+    {type:"para",label:"Para 10",role:"결론 — 협력과 방향"},
+    {num:44,en:"We have a new powerful technology to deal with – itself, literally, a new way of thinking.",
+     kr:"우리는 다루어야 할 새롭고 강력한 기술, 문자 그대로 새로운 사고 방식 자체를 가지고 있다.",
+     vocab:[{w:"literally",pos:"adv",kr:"문자 그대로"},{w:"deal with",pos:"phrasal v",kr:"다루다, 처리하다"}]},
+    {num:45,en:"For our own safety, we need to point these new thinkers in the right direction, and get them to act well for us.",
+     kr:"우리 자신의 안전을 위해 이 새로운 사고 주체들을 올바른 방향으로 이끌고 우리를 위해 잘 행동하도록 해야 한다.",
+     vocab:[{w:"point ~ in the right direction",pos:"phrase",kr:"~을 올바른 방향으로 이끌다"}]},
+    {num:46,en:"It is not yet clear whether this is possible, but if it is, it will require a cooperative spirit, and a willingness to set aside self-interest.",
+     kr:"이것이 가능한지는 아직 명확하지 않지만, 가능하다면 협력 정신과 자기 이익을 내려놓으려는 의지가 필요할 것이다.",
+     grammar:"<strong>a willingness to</strong> = '~하려는 의지'. <strong>set aside</strong> = '내려놓다, 무시하다'. Q23 YES 핵심(cooperative spirit).",
+     vocab:[{w:"cooperative",pos:"adj",kr:"협력적인"},{w:"willingness",pos:"n",kr:"기꺼이 하려는 마음, 의지"},{w:"set aside",pos:"phrasal v",kr:"내려놓다, 제쳐두다"},{w:"self-interest",pos:"n",kr:"자기 이익"}]},
+    {type:"para",label:"Para 11",role:"지능과 도덕성의 결합"},
+    {num:47,en:"Both general intelligence and moral reasoning are often thought to be uniquely human capacities.",
+     kr:"일반 지능과 도덕적 추론 모두 종종 고유하게 인간적인 능력으로 여겨진다.",
+     vocab:[{w:"moral reasoning",pos:"n",kr:"도덕적 추론"},{w:"capacity",pos:"n",kr:"능력"}]},
+    {num:48,en:"But safety seems to require that we think of them as a package: if we are to give general intelligence to machines, we'll need to give them moral authority, too.",
+     kr:"그러나 안전은 우리가 이 둘을 패키지로 생각하도록 요구하는 것 같다. 기계에게 일반 지능을 부여한다면, 도덕적 권위도 부여해야 할 것이다.",
+     grammar:"<strong>think of A as B</strong> = 'A를 B로 여기다'. <strong>if we are to</strong> = '~하려면(if + be to 의도/조건)'. <strong>moral authority</strong> = '도덕적 권위'.",
+     vocab:[{w:"moral authority",pos:"n",kr:"도덕적 권위"},{w:"package",pos:"n",kr:"패키지, 묶음"}]},
+    {num:49,en:"And where exactly would that leave human beings?",
+     kr:"그렇다면 인간은 정확히 어디에 남게 될까?",grammar:"수사의문문.",vocab:[]},
+    {num:50,en:"All the more reason to think about the destination now, and to be careful about what we wish for.",
+     kr:"지금 목적지에 대해 생각하고, 우리가 바라는 것에 대해 신중해야 할 이유가 더욱 크다.",
+     grammar:"<strong>All the more reason to</strong> = '~할 이유가 더욱 크다'. King Midas 비유와 수미상관.",
+     vocab:[{w:"all the more",pos:"phrase",kr:"더욱, 한층 더"}]}
+  ],
+  allVocab:[
+    {w:"feat",pos:"n",pron:"/fiːt/",kr:"위업, 업적",ex:"The AI achieved <em>feats</em> no human could match.",syn:["achievement","accomplishment"]},
+    {w:"prodigious",pos:"adj",pron:"/prəˈdɪdʒəs/",kr:"놀라운, 엄청난",ex:"Its <em>prodigious</em> accomplishments stunned the world.",syn:["remarkable","extraordinary"]},
+    {w:"coexistence",pos:"n",pron:"/ˌkəʊɪɡˈzɪstəns/",kr:"공존",ex:"Safe <em>coexistence</em> with AI is our goal.",syn:["harmony","living together"]},
+    {w:"fallible",pos:"adj",pron:"/ˈfælɪbl/",kr:"오류를 범하기 쉬운",ex:"Humans are <em>fallible</em>, but machines could be more reliable.",syn:["imperfect","error-prone"]},
+    {w:"autonomy",pos:"n",pron:"/ɔːˈtɒnəmi/",kr:"자율성",ex:"AI control may reduce human <em>autonomy</em>.",syn:["independence","self-governance"]},
+    {w:"utopian",pos:"adj",pron:"/juːˈtəʊpiən/",kr:"유토피아적인",ex:"The idea of perfect AI is a <em>utopian</em> vision.",syn:["idealistic"]},
+    {w:"lapse",pos:"n",pron:"/læps/",kr:"일탈, 실수",ex:"Silicon police might prevent moral <em>lapses</em>.",syn:["slip","mistake","deviation"]},
+    {w:"gatekeeper",pos:"n",pron:"/ˈɡeɪtkiːpər/",kr:"통제자, 문지기",ex:"AI could act as a moral <em>gatekeeper</em>.",syn:["controller","regulator"]},
+    {w:"far-fetched",pos:"adj",pron:"/ˌfɑːˈfetʃt/",kr:"황당한, 억지스러운",ex:"The idea of AI police seems <em>far-fetched</em> but is already happening.",syn:["unlikely","implausible"]},
+    {w:"deprive A of B",pos:"phrase",pron:"",kr:"A에게서 B를 빼앗다",ex:"AI might <em>deprive</em> doctors <em>of</em> their control.",syn:["strip","rob"]},
+    {w:"willingness",pos:"n",pron:"/ˈwɪlɪŋnəs/",kr:"기꺼이 하려는 의지",ex:"We need a <em>willingness</em> to set aside self-interest.",syn:["readiness","inclination"]},
+    {w:"moral authority",pos:"n",pron:"",kr:"도덕적 권위",ex:"Giving AI <em>moral authority</em> is controversial.",syn:[]}
+  ],
+  tfng:[
+    {qNum:20,stmt:"Machines with the ability to make moral decisions may prevent us from promoting the interests of our communities.",correct:"YES",mine:"",
+     evPara:"Para 7",ev:"We might <mark>lose our freedom to discriminate in favour of our own communities</mark>.",
+     why:"'우리 공동체를 편애할 자유를 잃을 수 있다' = '공동체 이익을 증진하는 것을 막을 수 있다' → YES.",trap:""},
+    {qNum:21,stmt:"Silicon police would need to exist in large numbers in order to be effective.",correct:"NOT GIVEN",mine:"",
+     evPara:"Para 8",ev:"(숫자/규모에 관한 내용 없음)",
+     why:"실리콘 경찰의 수(large numbers)에 대한 언급이 전혀 없음 → NOT GIVEN.",
+     trap:"<strong>함정:</strong> 실리콘 경찰이 언급되므로 이에 관련된 주장이 있을 것이라 추론하면 안 됨. 직접적인 언급이 없으면 NOT GIVEN."},
+    {qNum:22,stmt:"Many people are comfortable with the prospect of their independence being restricted by machines.",correct:"NO",mine:"",
+     evPara:"Para 8",ev:"<mark>few of us are likely to welcome such a future</mark>.",
+     why:"'그런 미래를 환영할 사람이 거의 없다' = 대부분이 불편해함 → NO.",trap:""},
+    {qNum:23,stmt:"If we want to ensure that machines act in our best interests, we all need to work together.",correct:"YES",mine:"",
+     evPara:"Para 10",ev:"if it is [possible], it will require <mark>a cooperative spirit, and a willingness to set aside self-interest</mark>.",
+     why:"협력 정신이 필요하다 = 함께 협력해야 한다 → YES.",trap:""}
+  ],
+  paragraphs:[
+    {lbl:"P1",role:"AI 급속 발전",desc:"협소 AI의 놀라운 성과. 전문가들은 AGI가 곧 올 것으로 전망."},
+    {lbl:"P2",role:"AI의 잠재력",desc:"기계는 인간의 물리적 제약(전구 전력, 산도 크기)에서 자유로움 → 발전 한계가 훨씬 높을 수 있음."},
+    {lbl:"P3",role:"목표 설정의 중요성",desc:"King Midas 비유: 목표를 잘못 설정하면 재앙. AI 목표를 신중히 명시해야."},
+    {lbl:"P4",role:"인간 친화적 AI의 과제",desc:"우리 자신이 인간 친화적이지 않으므로 AI에게 우리 가치를 주는 것이 어려움."},
+    {lbl:"P5",role:"도덕적 AI",desc:"AI가 윤리적으로도 초인간적이길 요구. 도덕적 고지를 찾아줄 것이라는 낙관."},
+    {lbl:"P6",role:"두 가지 문제",desc:"출발점(시작) 문제: AI에게 무엇을 찾을지 명확히 알려줘야. 목적지 문제: 도달하면 어떤 의미인가."},
+    {lbl:"P7",role:"자율성 상실",desc:"AI 도덕 안내자에게 맡기면 자율성 희생. 공동체 편애 자유 상실 가능."},
+    {lbl:"P8",role:"자유 제한의 양면",desc:"나쁜 자유 제한은 진보(아동 노동 금지 등). 하지만 실리콘 경찰은 대부분 반기지 않음."},
+    {lbl:"P9",role:"NHS 현실 사례",desc:"AI가 이미 NHS 자원 배분에 영향. 효율성 ↑ but 의사 통제권 ↓."},
+    {lbl:"P10",role:"결론 — 협력 필요",desc:"AI를 올바른 방향으로 이끌려면 협력 정신과 자기 이익 포기 필요."},
+    {lbl:"P11",role:"지능+도덕성 패키지",desc:"AI에게 일반 지능을 주려면 도덕적 권위도 줘야. 인간의 위치에 대한 질문."}
+  ],
+  summary:"Living with AI — AI 발전의 놀라운 속도와 잠재력을 인정하면서, 인간 친화적·도덕적 AI를 만드는 것의 어려움과 자율성 상실의 위험을 경고하는 지문."
+},
+
+
+"C18_T2_P3": {
+  title:"Cambridge 18 · Test 2 · Passage 3",
+  topic:"An Ideal City — Leonardo da Vinci",
+  qTypes:["True / False / Not Given","Summary Completion"],
+  sentences:[
+    {type:"para",label:"Para 1",role:"레오나르도 다빈치 — 소개"},
+    {num:1,en:"The word 'genius' is universally associated with the name of Leonardo da Vinci.",
+     kr:"'천재'라는 단어는 보편적으로 레오나르도 다빈치의 이름과 연관된다.",
+     grammar:"<strong>universally associated with</strong> = '보편적으로 연관되다'. Q27 NOT GIVEN 핵심: '500년 전에 처음 불렸다'는 내용 없음.",
+     vocab:[{w:"universally",pos:"adv",kr:"보편적으로"},{w:"associated with",pos:"phrase",kr:"~와 연관된"}]},
+    {num:2,en:"A true Renaissance man, he embodied scientific spirit, artistic talent and humanist sensibilities.",
+     kr:"진정한 르네상스인이었던 그는 과학적 정신, 예술적 재능, 인문주의적 감성을 구현했다.",
+     grammar:"<strong>Renaissance man</strong> = '박학다식한 사람(다방면의 천재)'. <strong>embody</strong> = '구현하다'. <strong>sensibilities</strong> = '감수성'.",
+     vocab:[{w:"embody",pos:"v",kr:"구현하다"},{w:"humanist",pos:"adj",kr:"인문주의적인"},{w:"sensibilities",pos:"n",kr:"감수성"}]},
+    {num:3,en:"Five hundred years have passed since Leonardo died in his home at Chateau du Clos Luce, outside Tours, France.",
+     kr:"레오나르도가 프랑스 투르 외곽의 클로 뤼세 성에서 사망한 지 500년이 흘렀다.",
+     vocab:[{w:"chateau",pos:"n",kr:"성, 저택(프랑스어)"}]},
+    {num:4,en:"Yet far from fading into insignificance, his thinking has carried down the centuries and still surprises today.",
+     kr:"그러나 그의 사상은 사라지기는커녕 수 세기를 넘어 오늘날에도 여전히 놀라움을 준다.",
+     grammar:"<strong>far from fading</strong> = '사라지기는커녕'(far from + v-ing = 부정 강조). <strong>carry down</strong> = '이어지다'.",
+     vocab:[{w:"far from",pos:"phrase",kr:"~하기는커녕"},{w:"insignificance",pos:"n",kr:"하찮음, 무의미"},{w:"fade",pos:"v",kr:"사라지다, 희미해지다"}]},
+    {type:"para",label:"Para 2",role:"르네상스 배경 — 역사적 맥락"},
+    {num:5,en:"The Renaissance marked the transition from the 15th century to modernity and took place after the spread of the plague in the 14th century, which caused a global crisis resulting in some 200 million deaths across Europe and Asia.",
+     kr:"르네상스는 15세기에서 근대로의 전환을 표시했으며, 유럽과 아시아에서 약 2억 명의 사망자를 낸 14세기 페스트 확산 이후에 나타났다.",
+     grammar:"<strong>mark the transition</strong> = '전환점을 표시하다'. <strong>resulting in</strong> = 결과 분사구문. Q28 NOT GIVEN 핵심: 기후 위기와의 사망자 비교 없음.",
+     vocab:[{w:"Renaissance",pos:"n",kr:"르네상스"},{w:"transition",pos:"n",kr:"전환"},{w:"plague",pos:"n",kr:"흑사병, 페스트"}]},
+    {num:6,en:"Today, the world is on the cusp of a climate crisis, which is predicted to cause widespread displacement, extinctions and death, if left unaddressed.",
+     kr:"오늘날 세계는 방치될 경우 광범위한 이주, 멸종, 사망을 초래할 것으로 예측되는 기후 위기의 기로에 서 있다.",
+     grammar:"<strong>on the cusp of</strong> = '~의 기로에'. <strong>if left unaddressed</strong> = 조건절 압축(if it is left).",
+     vocab:[{w:"on the cusp of",pos:"phrase",kr:"~의 기로에"},{w:"displacement",pos:"n",kr:"이주, 이동"},{w:"unaddressed",pos:"adj",kr:"해결되지 않은"}]},
+    {num:7,en:"Then, as now, radical solutions were called for to revolutionise the way people lived and safeguard humanity against catastrophe.",
+     kr:"그때도 지금처럼, 사람들의 생활 방식을 혁신하고 인류를 재앙으로부터 보호하기 위한 급진적인 해결책이 요구되었다.",
+     grammar:"<strong>Then, as now</strong> = '그때도 지금처럼'(비교 강조). <strong>be called for</strong> = '요구되다'. Q29 TRUE 핵심.",
+     vocab:[{w:"radical",pos:"adj",kr:"급진적인"},{w:"revolutionise",pos:"v",kr:"혁신하다"},{w:"safeguard",pos:"v",kr:"보호하다"},{w:"catastrophe",pos:"n",kr:"재앙"}]},
+    {type:"para",label:"Para 3",role:"다빈치의 이상 도시 프로젝트"},
+    {num:8,en:"Around 1486 – after a pestilence that killed half the population in Milan, Italy – Leonardo turned his thoughts to urban planning problems.",
+     kr:"약 1486년경, 이탈리아 밀라노 인구의 절반을 앗아간 전염병 이후 레오나르도는 도시 계획 문제에 눈을 돌렸다.",
+     grammar:"대시(–) 사이 = 삽입 배경 설명. <strong>pestilence</strong> = '전염병'. <strong>turn one's thoughts to</strong> = '~에 관심을 돌리다'.",
+     vocab:[{w:"pestilence",pos:"n",kr:"전염병"},{w:"urban planning",pos:"n",kr:"도시 계획"}]},
+    {num:9,en:"Following a typical Renaissance trend, he began to work on an 'ideal city' project, which – due to its excessive costs – would remain unfulfilled.",
+     kr:"전형적인 르네상스 트렌드를 따라 그는 '이상 도시' 프로젝트에 착수했지만, 과도한 비용으로 인해 미실현 상태로 남았다.",
+     grammar:"<strong>due to</strong> = '~로 인해'. <strong>would remain unfulfilled</strong> = '미실현으로 남을 것이었다'. Q30 FALSE 핵심.",
+     vocab:[{w:"excessive",pos:"adj",kr:"과도한, 지나친"},{w:"unfulfilled",pos:"adj",kr:"실현되지 않은"}]},
+    {num:10,en:"Yet given that unsustainable urban models are a key cause of global climate change today, it's only natural to wonder how Leonardo might have changed the shape of modern cities.",
+     kr:"그러나 지속 불가능한 도시 모델이 오늘날 지구 기후 변화의 주요 원인임을 감안하면, 레오나르도가 현대 도시의 모습을 어떻게 바꿀 수 있었을지 궁금해하는 것은 당연하다.",
+     grammar:"<strong>given that</strong> = '~을 감안하면'. <strong>it's only natural to</strong> = '~하는 것은 당연하다'. Q31 TRUE 핵심(unsustainable urban models = key cause).",
+     vocab:[{w:"unsustainable",pos:"adj",kr:"지속 불가능한"},{w:"it's only natural to",pos:"phrase",kr:"~하는 것은 당연하다"}]},
+    {type:"para",label:"Para 4",role:"르네상스 도시계획의 탄생"},
+    {num:11,en:"Although the Renaissance is renowned as an era of incredible progress in art and architecture, it is rarely noted that the 15th century also marked the birth of urbanism as a true academic discipline.",
+     kr:"르네상스는 예술과 건축의 엄청난 진보의 시대로 유명하지만, 15세기가 도시주의가 진정한 학문 분야로 탄생한 시기라는 점은 거의 주목받지 못한다.",
+     grammar:"<strong>renowned as</strong> = '~로 유명한'. <strong>it is rarely noted that</strong> = '~는 거의 주목받지 못한다'. <strong>urbanism</strong> = '도시주의'.",
+     vocab:[{w:"renowned",pos:"adj",kr:"유명한"},{w:"urbanism",pos:"n",kr:"도시주의"},{w:"discipline",pos:"n",kr:"학문 분야"}]},
+    {num:12,en:"The rigour and method behind the conscious conception of a city had been largely missing in Western thought until the moment when prominent Renaissance men pushed forward large-scale urban projects in Italy, such as the reconfiguration of the town of Pienza and the expansion of the city of Ferrara.",
+     kr:"도시의 의식적인 구상 뒤에 있는 엄격함과 방법론은 저명한 르네상스 인들이 피엔차 마을 재편성과 페라라 도시 확장 같은 대규모 도시 프로젝트를 추진할 때까지 서구 사상에서 대부분 빠져 있었다.",
+     grammar:"<strong>had been ~ missing</strong> = 과거완료 수동. <strong>rigour</strong> = '엄격함'. Q32 NOT GIVEN 핵심(지역 주민의 저항 언급 없음).",
+     vocab:[{w:"rigour",pos:"n",kr:"엄격함, 철저함"},{w:"conception",pos:"n",kr:"구상, 개념"},{w:"reconfiguration",pos:"n",kr:"재편성"},{w:"expansion",pos:"n",kr:"확장"}]},
+    {num:13,en:"These works surely inspired Leonardo's decision to rethink the design of medieval cities, with their winding and overcrowded streets and with houses piled against one another.",
+     kr:"이러한 작업들이 분명히 레오나르도가 구불구불하고 혼잡한 거리와 다닥다닥 붙어 있는 중세 도시 설계를 재고하도록 결정하는 데 영감을 주었다.",
+     grammar:"<strong>with their winding ~ streets</strong> = 중세 도시의 문제점 묘사 독립분사구문. <strong>winding</strong> = '구불구불한'.",
+     vocab:[{w:"medieval",pos:"adj",kr:"중세의"},{w:"winding",pos:"adj",kr:"구불구불한"},{w:"overcrowded",pos:"adj",kr:"혼잡한"},{w:"pile against",pos:"phrase",kr:"~에 다닥다닥 붙다"}]},
+    {type:"para",label:"Para 5",role:"이상 도시의 구체적 계획"},
+    {num:14,en:"It is not easy to identify a coordinated vision of Leonardo's ideal city because of his disordered way of working with notes and sketches.",
+     kr:"레오나르도가 노트와 스케치를 무질서하게 작업하는 방식 때문에 그의 이상 도시에 대한 체계적인 비전을 파악하기 쉽지 않다.",
+     grammar:"<strong>coordinated</strong> = '체계적인, 조율된'. Q33 FALSE 핵심: <strong>disordered</strong> = '무질서한'(≠ neat/organised).",
+     vocab:[{w:"coordinated",pos:"adj",kr:"체계적인, 조율된"},{w:"disordered",pos:"adj",kr:"무질서한"},{w:"sketch",pos:"n",kr:"스케치"}]},
+    {num:15,en:"But from the largest collection of Leonardo's papers ever assembled, a series of innovative thoughts can be reconstructed regarding the foundation of a new city along the Ticino River, which runs from Switzerland into Italy and is 248 kilometres long.",
+     kr:"그러나 지금까지 모은 가장 큰 레오나르도 문서 컬렉션에서 스위스에서 이탈리아로 흐르는 248킬로미터 길이의 티치노 강을 따라 새 도시를 세우는 것에 관한 혁신적인 사상들을 재구성할 수 있다.",
+     grammar:"<strong>can be reconstructed</strong> = 수동태. <strong>which runs</strong> = 비제한적 관계절.",
+     vocab:[{w:"assembled",pos:"adj",kr:"수집된, 모인"},{w:"reconstruct",pos:"v",kr:"재구성하다"},{w:"innovative",pos:"adj",kr:"혁신적인"}]},
+    {num:16,en:"He designed the city for the easy transport of goods and clean urban spaces, and he wanted a comfortable and spacious city, with well-ordered streets and architecture.",
+     kr:"그는 쉬운 물류 운송과 깨끗한 도시 공간을 위해 도시를 설계했으며, 잘 정비된 거리와 건축물을 갖춘 쾌적하고 넓은 도시를 원했다.",
+     grammar:"Q34 정답(transport) 핵심.",
+     vocab:[{w:"transport",pos:"n",kr:"운송, 수송"},{w:"spacious",pos:"adj",kr:"넓은, 쾌적한"},{w:"well-ordered",pos:"adj",kr:"잘 정비된"}]},
+    {num:17,en:"He recommended 'high, strong walls', with 'towers and battlements of all necessary and pleasant beauty'.",
+     kr:"그는 '높고 튼튼한 성벽'과 '필요하고 아름다운 탑과 성루'를 권고했다.",
+     vocab:[{w:"battlement",pos:"n",kr:"성루, 성벽 위 방어 시설"}]},
+    {type:"para",label:"Para 6",role:"다층 도시 설계 — 혁신"},
+    {num:18,en:"His plans for a modern and 'rational' city were consistent with Renaissance ideals.",
+     kr:"현대적이고 '합리적인' 도시에 대한 그의 계획은 르네상스 이상과 일치했다.",
+     vocab:[{w:"rational",pos:"adj",kr:"합리적인"},{w:"consistent with",pos:"phrase",kr:"~와 일치하는"}]},
+    {num:19,en:"But, in keeping with his personality, Leonardo included several innovations in his urban design.",
+     kr:"하지만 그의 성격에 맞게 레오나르도는 도시 설계에 여러 혁신을 포함시켰다.",
+     grammar:"<strong>in keeping with</strong> = '~에 걸맞게, ~에 따라'.",
+     vocab:[{w:"in keeping with",pos:"phrase",kr:"~에 걸맞게"},{w:"innovation",pos:"n",kr:"혁신"}]},
+    {num:20,en:"Leonardo wanted the city to be built on several levels, linked with vertical outdoor staircases.",
+     kr:"레오나르도는 수직 야외 계단으로 연결된 여러 층으로 도시를 건설하길 원했다.",
+     grammar:"Q35 정답(staircases) 핵심.",
+     vocab:[{w:"vertical",pos:"adj",kr:"수직의"},{w:"outdoor staircase",pos:"n",kr:"야외 계단"}]},
+    {num:21,en:"This design can be seen in some of today's high-rise buildings but was unconventional at the time.",
+     kr:"이 설계는 오늘날 일부 고층 건물에서 볼 수 있지만, 당시에는 관습적이지 않았다.",
+     grammar:"<strong>unconventional</strong> = '관습에 얽매이지 않은, 비전통적인'. <strong>high-rise</strong> = '고층의'.",
+     vocab:[{w:"unconventional",pos:"adj",kr:"비전통적인"},{w:"high-rise",pos:"adj",kr:"고층의"}]},
+    {num:22,en:"Indeed, this idea of taking full advantage of the interior spaces wasn't implemented until the 1920s and 1930s, with the birth of the Modernist movement.",
+     kr:"실제로 내부 공간을 최대한 활용하는 이 아이디어는 모더니즘 운동의 탄생과 함께 1920-30년대까지 실행되지 않았다.",
+     grammar:"<strong>take full advantage of</strong> = '~을 최대한 활용하다'. <strong>wasn't implemented until</strong> = '~까지 실행되지 않았다'.",
+     vocab:[{w:"implement",pos:"v",kr:"실행하다, 구현하다"},{w:"Modernist movement",pos:"n",kr:"모더니즘 운동"}]},
+    {type:"para",label:"Para 7",role:"상하층 기능 분리 + 수로 설계"},
+    {num:23,en:"While in the upper layers of the city, people could walk undisturbed between elegant palaces and streets, the lower layer was the place for services, trade, transport and industry.",
+     kr:"도시 상층에서는 사람들이 우아한 궁전과 거리를 방해받지 않고 걸을 수 있었던 반면, 하층은 서비스, 무역, 운송, 산업을 위한 공간이었다.",
+     grammar:"<strong>While</strong> = 대조 접속사. <strong>undisturbed</strong> = '방해받지 않은'. 기능별 층 구분이 핵심.",
+     vocab:[{w:"undisturbed",pos:"adj",kr:"방해받지 않은"},{w:"elegant",pos:"adj",kr:"우아한"}]},
+    {num:24,en:"But the true originality of Leonardo's vision was its fusion of architecture and engineering.",
+     kr:"하지만 레오나르도 비전의 진정한 독창성은 건축과 공학의 융합이었다.",
+     grammar:"<strong>originality</strong> = '독창성'. <strong>fusion</strong> = '융합'. Q36 정답(engineering) 핵심.",
+     vocab:[{w:"originality",pos:"n",kr:"독창성"},{w:"fusion",pos:"n",kr:"융합"}]},
+    {num:25,en:"Leonardo designed extensive hydraulic plants to create artificial canals throughout the city.",
+     kr:"레오나르도는 도시 전체에 인공 운하를 만들기 위해 광범위한 수력 설비를 설계했다.",
+     grammar:"<strong>hydraulic</strong> = '수력의'. <strong>extensive</strong> = '광범위한'. Q36 정답(engineering) 근거.",
+     vocab:[{w:"hydraulic",pos:"adj",kr:"수력의"},{w:"artificial canal",pos:"n",kr:"인공 운하"},{w:"extensive",pos:"adj",kr:"광범위한"}]},
+    {num:26,en:"The canals, regulated by clocks and basins, were supposed to make it easier for boats to navigate inland.",
+     kr:"시계와 수조로 조절되는 운하는 배가 내륙을 항해하기 더 쉽게 하기 위한 것이었다.",
+     grammar:"<strong>were supposed to</strong> = '~하기로 되어 있었다'. <strong>navigate inland</strong> = '내륙을 항해하다'.",
+     vocab:[{w:"navigate",pos:"v",kr:"항해하다"},{w:"inland",pos:"adv",kr:"내륙으로"}]},
+    {num:27,en:"Leonardo also thought that the width of the streets ought to match the average height of the adjacent houses: a rule still followed in many contemporary cities across Italy, to allow access to sun and reduce the risk of damage from earthquakes.",
+     kr:"레오나르도는 또한 거리 폭이 인접 주택의 평균 높이와 일치해야 한다고 생각했는데, 이는 햇빛 접근을 허용하고 지진 피해 위험을 줄이기 위해 오늘날 이탈리아 여러 현대 도시에서 여전히 따르는 규칙이다.",
+     grammar:"콜론(:) 뒤 = 동격/보충 설명. <strong>adjacent</strong> = '인접한'. Q37 정답(rule) 핵심.",
+     vocab:[{w:"adjacent",pos:"adj",kr:"인접한"},{w:"contemporary",pos:"adj",kr:"현대의"},{w:"rule",pos:"n",kr:"규칙"}]},
+    {type:"para",label:"Para 8",role:"역사적 영향 — 파리 재개발"},
+    {num:28,en:"Although some of these features existed in Roman cities, before Leonardo's drawings there had never been a multi-level, compact modern city which was thoroughly technically conceived.",
+     kr:"이러한 특징 중 일부는 로마 도시에도 있었지만, 레오나르도의 도면 이전에는 기술적으로 철저히 구상된 다층 밀집 현대 도시가 없었다.",
+     grammar:"<strong>thoroughly</strong> = '철저히'. <strong>conceived</strong> = '구상된'. Q38 정답(Roman) 핵심.",
+     vocab:[{w:"thoroughly",pos:"adv",kr:"철저히"},{w:"compact",pos:"adj",kr:"밀집된, 소형의"},{w:"conceived",pos:"adj",kr:"구상된"}]},
+    {num:29,en:"Indeed, it wasn't until the 19th century that some of his ideas were applied.",
+     kr:"실제로 그의 아이디어 일부가 적용된 것은 19세기에 이르러서였다.",
+     grammar:"<strong>It wasn't until A that B</strong> = 'A가 되어서야 비로소 B했다'(강조 구문).",
+     vocab:[]},
+    {num:30,en:"For example, the subdivision of the city by function – with services and infrastructures located in the lower levels and wide and well-ventilated boulevards and walkways above for residents – is an idea that can be found in Georges-Eugene Haussmann's renovation of Paris under Emperor Napoleon III between 1853 and 1870.",
+     kr:"예를 들어, 하위 층에 서비스와 기반 시설을 배치하고 위층에는 주민을 위한 넓고 환기가 잘 되는 대로와 보행로를 두는 기능별 도시 구획 방식은 1853년부터 1870년까지 나폴레옹 3세 황제 치하에서 오스만의 파리 개조에서 찾을 수 있는 아이디어이다.",
+     grammar:"<strong>subdivision</strong> = '구획'. <strong>well-ventilated</strong> = '환기가 잘 되는'. Q39 정답(Paris) 핵심.",
+     vocab:[{w:"subdivision",pos:"n",kr:"구획, 분할"},{w:"infrastructure",pos:"n",kr:"기반 시설"},{w:"boulevard",pos:"n",kr:"대로"},{w:"renovation",pos:"n",kr:"개조, 재건"}]},
+    {type:"para",label:"Para 9",role:"현대적 의미 — 결론"},
+    {num:31,en:"Today, Leonardo's ideas are not simply valid, they actually suggest a way forward for urban planning.",
+     kr:"오늘날 레오나르도의 아이디어는 단순히 유효한 것이 아니라, 실제로 도시 계획의 나아갈 방향을 제시한다.",
+     vocab:[{w:"valid",pos:"adj",kr:"유효한, 타당한"}]},
+    {num:32,en:"Many scholars think that the compact city, built upwards instead of outwards, integrated with nature (especially water systems), with efficient transport infrastructure, could help modern cities become more efficient and sustainable.",
+     kr:"많은 학자들은 바깥이 아닌 위로 건설되고 자연(특히 수계)과 통합되며 효율적인 운송 기반 시설을 갖춘 밀집 도시가 현대 도시가 더 효율적이고 지속 가능하게 되는 데 도움이 될 수 있다고 생각한다.",
+     grammar:"<strong>built upwards instead of outwards</strong>: Q40 정답(outwards) 핵심. <strong>integrated with</strong> = '~와 통합된'.",
+     vocab:[{w:"outwards",pos:"adv",kr:"바깥쪽으로"},{w:"integrated with",pos:"phrase",kr:"~와 통합된"},{w:"sustainable",pos:"adj",kr:"지속 가능한"}]},
+    {num:33,en:"This is yet another reason why Leonardo was aligned so closely with modern urban planning and centuries ahead of his time.",
+     kr:"이것이 레오나르도가 현대 도시 계획과 매우 밀접하게 일치하고 자신의 시대보다 수 세기 앞서 있었던 또 하나의 이유이다.",
+     grammar:"<strong>yet another</strong> = '또 하나의'. <strong>centuries ahead of his time</strong> = '시대를 수 세기 앞선'.",
+     vocab:[{w:"aligned with",pos:"phrase",kr:"~와 일치하는"},{w:"ahead of one's time",pos:"phrase",kr:"시대를 앞선"}]}
+  ],
+  allVocab:[
+    {w:"embody",pos:"v",pron:"/ɪmˈbɒdi/",kr:"구현하다",ex:"Leonardo <em>embodied</em> scientific and artistic spirit.",syn:["represent","exemplify"]},
+    {w:"plague",pos:"n",pron:"/pleɪɡ/",kr:"흑사병, 전염병",ex:"The <em>plague</em> killed millions in the 14th century.",syn:["pestilence","epidemic"]},
+    {w:"safeguard",pos:"v",pron:"/ˈseɪfɡɑːd/",kr:"보호하다",ex:"Radical solutions were needed to <em>safeguard</em> humanity.",syn:["protect","shield"]},
+    {w:"unfulfilled",pos:"adj",pron:"/ˌʌnfʊlˈfɪld/",kr:"실현되지 않은",ex:"The ideal city project remained <em>unfulfilled</em> due to cost.",syn:["unrealised","incomplete"]},
+    {w:"rigour",pos:"n",pron:"/ˈrɪɡər/",kr:"엄격함, 철저함",ex:"Renaissance urban planning had scientific <em>rigour</em>.",syn:["precision","thoroughness"]},
+    {w:"unconventional",pos:"adj",pron:"/ˌʌnkənˈvenʃənl/",kr:"비전통적인",ex:"Multi-level cities were <em>unconventional</em> in the 15th century.",syn:["unorthodox","innovative"]},
+    {w:"hydraulic",pos:"adj",pron:"/haɪˈdrɔːlɪk/",kr:"수력의",ex:"Leonardo designed <em>hydraulic</em> canal systems.",syn:["water-powered"]},
+    {w:"adjacent",pos:"adj",pron:"/əˈdʒeɪsənt/",kr:"인접한",ex:"Street width should match the height of <em>adjacent</em> buildings.",syn:["neighbouring","nearby"]},
+    {w:"renovation",pos:"n",pron:"/ˌrenəˈveɪʃn/",kr:"개조, 재건",ex:"Haussmann's <em>renovation</em> of Paris applied Leonardo's ideas.",syn:["redevelopment","reconstruction"]},
+    {w:"sustainable",pos:"adj",pron:"/səˈsteɪnəbl/",kr:"지속 가능한",ex:"Compact cities can be more <em>sustainable</em>.",syn:["eco-friendly","viable"]},
+    {w:"ahead of one's time",pos:"phrase",pron:"",kr:"시대를 앞선",ex:"Leonardo was centuries <em>ahead of his time</em>.",syn:["visionary","pioneering"]}
+  ],
+  tfng:[
+    {qNum:27,stmt:"People first referred to Leonardo da Vinci as a genius 500 years ago.",correct:"NOT GIVEN",mine:"",
+     evPara:"Para 1",ev:"The word 'genius' is <mark>universally associated</mark> with the name of Leonardo da Vinci.",
+     why:"지문은 '천재'가 보편적으로 연관된다고만 말할 뿐, 처음 불린 시점(500년 전)에 대한 언급이 없음 → NOT GIVEN.",
+     trap:"<strong>함정:</strong> '500년이 흘렀다'(Para 1)는 그가 죽은 지 500년이라는 것이지, '천재'라는 단어가 처음 쓰인 시점이 아님."},
+    {qNum:28,stmt:"The current climate crisis is predicted to cause more deaths than the plague.",correct:"NOT GIVEN",mine:"",
+     evPara:"Para 2",ev:"plague caused… <mark>some 200 million deaths</mark> / climate crisis: <mark>widespread displacement, extinctions and death</mark> (숫자 비교 없음)",
+     why:"두 사건을 모두 언급하지만 사망자 수를 직접 비교하는 내용이 없음 → NOT GIVEN.",
+     trap:"<strong>함정:</strong> 두 재앙이 모두 나오므로 비교가 있을 것 같지만, 기후 위기의 사망자 수는 명시되지 않음."},
+    {qNum:29,stmt:"Some of the challenges we face today can be compared to those of earlier times.",correct:"TRUE",mine:"",
+     evPara:"Para 2",ev:"<mark>Then, as now</mark>, radical solutions were called for to revolutionise the way people lived and safeguard humanity against catastrophe.",
+     why:"'그때도 지금처럼' = 오늘날의 도전을 이전 시대와 비교할 수 있음 → TRUE.",trap:""},
+    {qNum:30,stmt:"Leonardo da Vinci's 'ideal city' was constructed in the 15th century.",correct:"FALSE",mine:"",
+     evPara:"Para 3",ev:"an 'ideal city' project, which – <mark>due to its excessive costs – would remain unfulfilled</mark>.",
+     why:"과도한 비용으로 미실현됨 → 건설되었다는 진술은 거짓 → FALSE.",trap:""},
+    {qNum:31,stmt:"Poor town planning is a major contributor to climate change.",correct:"TRUE",mine:"",
+     evPara:"Para 3",ev:"<mark>unsustainable urban models are a key cause of global climate change</mark> today.",
+     why:"'지속 불가능한 도시 모델 = 기후 변화의 주요 원인' = '불량한 도시 계획 = 기후 변화의 주요 기여자' → TRUE.",trap:""},
+    {qNum:32,stmt:"In Renaissance times, local people fought against the changes to Pienza and Ferrara.",correct:"NOT GIVEN",mine:"",
+     evPara:"Para 4",ev:"prominent Renaissance men pushed forward large-scale urban projects in Italy, such as the reconfiguration of the town of Pienza and the expansion of the city of Ferrara. (반대 언급 없음)",
+     why:"두 도시의 재개발은 언급되지만 지역 주민의 저항에 대한 내용이 없음 → NOT GIVEN.",trap:""},
+    {qNum:33,stmt:"Leonardo da Vinci kept a neat, organised record of his designs.",correct:"FALSE",mine:"",
+     evPara:"Para 5",ev:"because of his <mark>disordered way of working with notes and sketches</mark>.",
+     why:"'무질서한 방식으로 작업' = neat/organised와 정반대 → FALSE.",trap:""}
+  ],
+  paragraphs:[
+    {lbl:"P1",role:"레오나르도 소개",desc:"보편적 천재로서의 레오나르도. 500년이 지나도 그의 사상이 놀라움을 줌."},
+    {lbl:"P2",role:"역사적 배경",desc:"르네상스 = 14세기 흑사병 이후. 오늘의 기후 위기와 유사: 급진적 해결책 필요."},
+    {lbl:"P3",role:"이상 도시 프로젝트",desc:"1486년 밀라노 전염병 이후 착수. 비용 과다로 미실현. 오늘날에도 시사점 있음."},
+    {lbl:"P4",role:"르네상스 도시주의",desc:"15세기가 도시주의 학문 탄생 시기. 피엔차·페라라 사례가 레오나르도에 영감."},
+    {lbl:"P5",role:"티치노 강 도시 설계",desc:"무질서한 노트에서 재구성. 물류·청결 중심. 높고 튼튼한 성벽 권고."},
+    {lbl:"P6",role:"다층 구조 혁신",desc:"수직 야외 계단으로 연결된 다층 도시. 당시엔 비전통적 → 1920-30년대 모더니즘에서 실현."},
+    {lbl:"P7",role:"기능 분리 + 수로",desc:"상층=보행·궁전, 하층=서비스·산업. 수력 운하 + 거리 폭·건물 높이 비율 규칙."},
+    {lbl:"P8",role:"역사적 영향",desc:"로마 도시와 일부 유사하나 최초의 종합적 다층 도시. 19세기 파리 오스만 재개발에서 실현."},
+    {lbl:"P9",role:"현대적 의미",desc:"위로 짓는 밀집 도시 + 자연 통합 = 지속 가능한 현대 도시 모델. 레오나르도는 시대를 앞선 천재."}
+  ],
+  summary:"An Ideal City — 레오나르도 다빈치의 15세기 이상 도시 구상이 다층 구조, 기능 분리, 수로 시스템 등으로 현대 도시계획을 수 세기 앞선 혁신이었음을 논증하는 지문."
+}
+
+}; // end PASSAGES
+
+// ═══════════════════════ NAV TREE ═══════════════════════
+const navTree = document.getElementById('nav-tree');
+[16,17,18,19,20].forEach(book => {
+  const bg = document.createElement('div'); bg.className='book-group';
+  const bl = document.createElement('div'); bl.className='book-label';
+  bl.innerHTML=`<span class="arr">▼</span>Cambridge ${book}`;
+  bl.onclick=()=>bl.classList.toggle('collapsed');
+  const tg = document.createElement('div'); tg.className='test-group';
+  for(let t=1;t<=4;t++){
+    const tl=document.createElement('div'); tl.className='test-label';
+    tl.innerHTML=`<span class="arr">▼</span>Test ${t}`;
+    tl.onclick=()=>tl.classList.toggle('collapsed');
+    const pl=document.createElement('div'); pl.className='passage-list';
+    for(let p=1;p<=3;p++){
+      const key=`C${book}_T${t}_P${p}`;
+      const has=!!PASSAGES[key];
+      const pi=document.createElement('div');
+      pi.className='passage-item'+(has?' done':'');
+      pi.dataset.key=key;
+      pi.innerHTML=`Passage ${p}<span class="p-badge">${has?'✓':'—'}</span>`;
+      pi.onclick=()=>selectPassage(key,pi);
+      pl.appendChild(pi);
+    }
+    tg.appendChild(tl); tg.appendChild(pl);
+  }
+  bg.appendChild(bl); bg.appendChild(tg);
+  navTree.appendChild(bg);
+});
+
+// ═══════════════════════ SELECT ═══════════════════════
+function selectPassage(key,el){
+  document.querySelectorAll('.passage-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+  const d=PASSAGES[key];
+  if(!d){renderEmpty(key);return;}
+  document.getElementById('ptitle').textContent=d.title;
+  const pt=document.getElementById('ptopic'); pt.textContent=d.topic; pt.style.display='inline-block';
+  renderSents(d); renderVocabAll(d); renderTFNG(d); renderSummary(d);
+  // reset to first tab
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector('.tab-btn[data-tab="sents"]').classList.add('active');
+  document.getElementById('tab-sents').classList.add('active');
+}
+
+function renderEmpty(key){
+  document.getElementById('ptitle').textContent=key.replace('C','Cambridge ').replace('_T',' · Test ').replace('_P',' · Passage ');
+  document.getElementById('ptopic').style.display='none';
+  const html=`<div class="empty"><div class="em">📝</div><h3>데이터 없음</h3><p>공부 후 PASSAGES 객체에 추가하세요.<br><code>"${key}": { ... }</code></p></div>`;
+  ['tab-sents','tab-vocab','tab-tfng','tab-summary'].forEach(id=>document.getElementById(id).innerHTML=html);
+}
+
+// ═══════════════════════ CIRCLE NUMS ═══════════════════════
+function cn(n){
+  const c='①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺';
+  return n<=50?c[n-1]:n;
+}
+
+// ═══════════════════════ RENDER SENTENCES ═══════════════════════
+function renderSents(d){
+  const el=document.getElementById('tab-sents');
+  const html=d.sentences.map(s=>{
+    if(s.type==='para'){
+      return `<div class="para-divider">
+        <span class="para-divider-badge">${s.label}</span>
+        <span class="para-divider-role">${s.role}</span>
+        <div class="para-divider-line"></div>
+      </div>`;
+    }
+    return `<div class="sent-block">
+      <div class="sent-num-row">
+        <div class="sent-num">${cn(s.num)}</div>
+        <div class="sent-en">${s.en}</div>
+      </div>
+      <div class="sent-kr">${s.kr}</div>
+      ${s.grammar?`<div class="grammar-note">${s.grammar}</div>`:''}
+      ${s.vocab&&s.vocab.length?`<table class="vocab-table">
+        <tr><th>단어</th><th>품사</th><th>의미</th></tr>
+        ${s.vocab.map(v=>`<tr><td>${v.w}</td><td>${v.pos}</td><td>${v.kr}</td></tr>`).join('')}
+      </table>`:''}
+    </div>`;
+  }).join('');
+
+  el.innerHTML=`
+    <div class="passage-intro">
+      <h3>${d.title}</h3>
+      <p>${d.topic}</p>
+      <div class="q-types">${d.qTypes.map(q=>`<span class="q-chip">${q}</span>`).join('')}</div>
+    </div>
+    <div class="legend-row">
+      <span style="font-size:11px;color:var(--tl);font-weight:600;">문법 색상:</span>
+      <span class="leg"><span class="leg-dot" style="background:#1d4ed8"></span>주어(S)</span>
+      <span class="leg"><span class="leg-dot" style="background:#b91c1c"></span>동사(V)</span>
+      <span class="leg"><span class="leg-dot" style="background:#047857"></span>목적어(O)</span>
+      <span class="leg"><span class="leg-dot" style="background:#6d28d9"></span>수식어(M)</span>
+    </div>
+    <div class="sentences-container">${html}</div>`;
+}
+
+// ═══════════════════════ RENDER VOCAB ═══════════════════════
+function renderVocabAll(d){
+  const el=document.getElementById('tab-vocab');
+  if(!d.allVocab||!d.allVocab.length){el.innerHTML='<div class="empty"><div class="em">📖</div><h3>어휘 데이터 없음</h3></div>';return;}
+  el.innerHTML=`<div class="vocab-all-container"><div class="vocab-all-grid">${
+    d.allVocab.map(v=>`<div class="vcard">
+      <div><span class="vcard-word">${v.w}</span><span class="vcard-pos">${v.pos}</span></div>
+      ${v.pron?`<div class="vcard-pron">${v.pron}</div>`:''}
+      <div class="vcard-kr">${v.kr}</div>
+      <div class="vcard-ex">예: ${v.ex}</div>
+      ${v.syn&&v.syn.length?`<div class="vcard-syn">유의어: ${v.syn.map(s=>`<span>${s}</span>`).join('')}</div>`:''}
+    </div>`).join('')}
+  </div></div>`;
+}
+
+// ═══════════════════════ RENDER T/F/NG ═══════════════════════
+function renderTFNG(d){
+  const el=document.getElementById('tab-tfng');
+  if(!d.tfng||!d.tfng.length){el.innerHTML='<div class="empty"><div class="em">❌</div><h3>오답 데이터 없음</h3></div>';return;}
+  el.innerHTML=`<div class="tfng-container">${d.tfng.map(q=>{
+    const ca=q.correct.replace(' ','');
+    const wrong=q.mine&&q.mine!==q.correct;
+    return `<div class="tfng-block ans-${ca}">
+      <div class="tfng-head">
+        <div class="q-circle">${q.qNum}</div>
+        <div class="q-stmt">${q.stmt}</div>
+        <span class="ans-pill pill-${ca}">정답: ${q.correct}</span>
+        ${q.mine?`<span class="ans-pill pill-mine">내 답: ${q.mine}</span>`:''}
+      </div>
+      ${q.mine?`<div class="result-row ${wrong?'wrong':'correct'}">${wrong?'✗ 오답':'✓ 정답'}</div>`:''}
+      <div class="ev-label">📍 근거 문장 (${q.evPara})</div>
+      <div class="ev-box">${q.ev}</div>
+      <div class="why-label">🧠 ${q.correct}인 이유</div>
+      <div class="why-box">${q.why}</div>
+      ${q.trap?`<div class="trap-label" style="margin-top:8px">⚠️ 함정</div><div class="trap-box">${q.trap}</div>`:''}
+    </div>`;
+  }).join('')}</div>`;
+}
+
+// ═══════════════════════ RENDER SUMMARY ═══════════════════════
+function renderSummary(d){
+  const el=document.getElementById('tab-summary');
+  el.innerHTML=`<div class="summary-container">
+    <div class="sum-card">
+      <div class="sum-title">📄 패시지 개요</div>
+      <div class="sum-text">${d.summary}</div>
+      <div class="q-types" style="margin-top:10px">${d.qTypes.map(q=>`<span class="q-chip">${q}</span>`).join('')}</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-title">🗺️ 단락별 구조도</div>
+      ${d.paragraphs.map(p=>`<div class="smap-row">
+        <div class="smap-lbl">${p.lbl}</div>
+        <div><div class="smap-role">${p.role}</div><div class="smap-desc">${p.desc}</div></div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════ TABS ═══════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  };
+});
+
+// ═══════════════════════ AUTO SELECT ═══════════════════════
+const first=document.querySelector('.passage-item.done');
+if(first) first.click();
+</script>
+</body>
+</html>
