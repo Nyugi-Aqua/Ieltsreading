@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS 문장 첨삭 노트</title>
+<style>
+  :root {
+    --red: #d32f2f;
+    --border: #e0e0e0;
+    --bg-soft: #fafafa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 24px 20px 80px;
+    background: #fff;
+    color: #222;
+    line-height: 1.6;
+  }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .subtitle { color: #777; font-size: 13px; margin-bottom: 24px; }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    background: #fff;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .card-desc { font-size: 12px; color: #999; margin-bottom: 14px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  label:first-of-type { margin-top: 0; }
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  textarea { min-height: 56px; }
+  input[type="text"]:focus, textarea:focus { outline: none; border-color: #999; }
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    background: #222;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+  .btn:hover { background: #444; }
+  .btn.secondary { background: #fff; color: #222; border: 1px solid var(--border); }
+  .btn.secondary:hover { background: #f2f2f2; }
+  .btn.primary-outline { background: #fff; color: var(--red); border: 1px solid #f3c8c8; }
+  .btn.primary-outline:hover { background: #fff5f5; }
+  .btn.danger {
+    background: #fff;
+    color: var(--red);
+    border: 1px solid #f3c8c8;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-top: 0;
+  }
+  .btn.danger:hover { background: #fff5f5; }
+  .btn.small { padding: 5px 10px; font-size: 12px; margin-top: 0; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+  .result-box {
+    font-size: 16px;
+    line-height: 2.1;
+    padding: 14px 16px;
+    background: var(--bg-soft);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    word-break: keep-all;
+  }
+  .result-box del {
+    color: var(--red);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    margin-right: 2px;
+  }
+  .result-box ins {
+    color: var(--red);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid var(--red);
+    margin-right: 2px;
+  }
+  .correct-ref { margin-top: 10px; font-size: 14px; color: #555; }
+  .correct-ref b { color: #333; }
+
+  .empty-msg { color: #999; font-size: 14px; padding: 20px 0; text-align: center; }
+
+  .group {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-soft);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .group-header .count { font-weight: 400; color: #888; font-size: 12px; }
+  .group-body { padding: 4px 16px 16px; display: none; }
+  .group.open .group-body { display: block; }
+  .group-header .arrow { transition: transform 0.15s; color: #999; }
+  .group.open .group-header .arrow { transform: rotate(90deg); }
+
+  .essay-entry { border-top: 1px solid var(--border); padding: 14px 0; }
+  .essay-entry:first-child { border-top: none; }
+  .essay-entry-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+  }
+  .sentence-item { margin-bottom: 10px; }
+  .sentence-num {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    margin-bottom: 4px;
+  }
+  .sentence-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .sentence-row .result-box { flex: 1; }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
+  .toolbar input[type="text"] { flex: 1; }
+
+  .draft-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .draft-count { font-size: 13px; color: #777; font-weight: 400; }
+  .draft-count.reached { color: #2e7d32; font-weight: 700; }
+  .target-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #999;
+  }
+  .target-input-wrap input[type="number"] {
+    width: 52px;
+    padding: 4px 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>IELTS 문장 첨삭 노트</h1>
+<div class="subtitle">한 문장씩 첨삭하고, 다 모으면 하나의 답안으로 저장해요. 답안은 테스트별로 쌓여요.</div>
+
+<div class="card">
+  <label style="margin-top:0;">테스트 / 세트 이름</label>
+  <input type="text" id="testName" list="testNameList" placeholder="예: Cambridge 20 Test 1" oninput="saveDraft()">
+  <datalist id="testNameList"></datalist>
+</div>
+
+<div class="card">
+  <div class="card-title">① 문장 첨삭</div>
+  <div class="card-desc">한 문장씩 비교하고, 맞으면 답안에 추가하세요.</div>
+
+  <label>내가 외운 문장</label>
+  <textarea id="myText" placeholder="내가 외운 그대로 입력하세요"></textarea>
+
+  <label>정답 문장</label>
+  <textarea id="correctText" placeholder="원문(정답) 문장을 입력하세요"></textarea>
+
+  <div class="btn-row">
+    <button class="btn" onclick="runDiff()">비교하기</button>
+    <button class="btn secondary" onclick="clearSentenceInputs()">지우기</button>
+  </div>
+
+  <div id="resultCard" style="display:none; margin-top:16px;">
+    <label style="margin-top:0;">첨삭 결과</label>
+    <div class="result-box" id="resultBox"></div>
+    <div class="correct-ref"><b>정답:</b> <span id="correctRef"></span></div>
+    <div class="btn-row">
+      <button class="btn primary-outline" onclick="addSentenceToDraft()">+ 이 문장 답안에 추가</button>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="draft-header">
+    <div class="card-title">② 작성 중인 답안 <span class="draft-count" id="draftCount"></span></div>
+    <div class="target-input-wrap">
+      목표 <input type="number" id="targetCount" min="1" value="30" onchange="updateTarget()"> 문장
+    </div>
+  </div>
+  <div class="card-desc">추가한 문장이 여기 쌓여요. 다 모으면 전체 저장하세요.</div>
+  <div id="draftList"></div>
+  <div class="btn-row">
+    <button class="btn" onclick="saveWholeEssay()">전체 저장</button>
+    <button class="btn secondary" onclick="clearDraft()">답안 초기화</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">저장된 답안 목록</div>
+  <div class="toolbar">
+    <input type="text" id="searchBox" placeholder="테스트 이름으로 검색..." oninput="renderHistory()">
+  </div>
+  <div id="historyList"></div>
+</div>
+
+<script>
+const STORAGE_KEY = 'ieltsCorrectionNotes';
+const DRAFT_KEY = 'ieltsCorrectionDraft';
+
+// ---------- storage ----------
+function loadData() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+  catch (e) { return {}; }
+}
+function saveData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+function loadDraftRaw() {
+  try {
+    const d = JSON.parse(localStorage.getItem(DRAFT_KEY)) || {};
+    return {
+      testName: d.testName || '',
+      sentences: d.sentences || [],
+      target: d.target || 30
+    };
+  } catch (e) { return { testName: '', sentences: [], target: 30 }; }
+}
+function saveDraftRaw(draft) { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); }
+
+let draft = loadDraftRaw();
+
+// ---------- diff engine ----------
+function tokenize(str) {
+  const re = /[A-Za-z0-9]+(?:'[A-Za-z]+)?|[^\sA-Za-z0-9]/g;
+  return str.match(re) || [];
+}
+
+function diffTokens(a, b) {
+  const n = a.length, m = b.length;
+  const dp = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      if (a[i].toLowerCase() === b[j].toLowerCase()) dp[i][j] = dp[i + 1][j + 1] + 1;
+      else dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+    }
+  }
+  const ops = [];
+  let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (a[i].toLowerCase() === b[j].toLowerCase()) {
+      ops.push({ type: 'equal', text: a[i] });
+      i++; j++;
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+      ops.push({ type: 'del', text: a[i] });
+      i++;
+    } else {
+      ops.push({ type: 'ins', text: b[j] });
+      j++;
+    }
+  }
+  while (i < n) { ops.push({ type: 'del', text: a[i] }); i++; }
+  while (j < m) { ops.push({ type: 'ins', text: b[j] }); j++; }
+  return ops;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+const NO_LEADING_SPACE = new Set(['.', ',', '!', '?', ';', ':', ')', ']', '}', "'", '"']);
+
+function appendToken(parts, token, wrapStart, wrapEnd) {
+  const needsSpace = parts.length > 0 && !NO_LEADING_SPACE.has(token[0]);
+  const text = escapeHtml(token);
+  parts.push({ html: (needsSpace ? ' ' : '') + wrapStart + text + wrapEnd });
+}
+
+function renderDiffHtml(mine, correct) {
+  const ops = diffTokens(tokenize(mine), tokenize(correct));
+  const parts = [];
+  let i = 0;
+  while (i < ops.length) {
+    const op = ops[i];
+    if (op.type === 'equal') {
+      appendToken(parts, op.text, '', '');
+      i++;
+    } else {
+      const dels = [];
+      const inss = [];
+      while (i < ops.length && ops[i].type !== 'equal') {
+        if (ops[i].type === 'del') dels.push(ops[i].text);
+        else inss.push(ops[i].text);
+        i++;
+      }
+      if (dels.length) appendToken(parts, dels.join(' '), '<del>', '</del>');
+      if (inss.length) appendToken(parts, inss.join(' '), '<ins>', '</ins>');
+    }
+  }
+  return parts.map(p => p.html).join('');
+}
+
+// ---------- step 1: per-sentence compare ----------
+function runDiff() {
+  const mine = document.getElementById('myText').value.trim();
+  const correct = document.getElementById('correctText').value.trim();
+  if (!mine || !correct) {
+    alert('내가 외운 문장과 정답 문장을 모두 입력해주세요.');
+    return;
+  }
+  document.getElementById('resultBox').innerHTML = renderDiffHtml(mine, correct);
+  document.getElementById('correctRef').textContent = correct;
+  document.getElementById('resultCard').style.display = 'block';
+}
+
+function clearSentenceInputs() {
+  document.getElementById('myText').value = '';
+  document.getElementById('correctText').value = '';
+  document.getElementById('resultCard').style.display = 'none';
+}
+
+// ---------- step 2: draft essay (multiple sentences, one test) ----------
+function saveDraft() {
+  draft.testName = document.getElementById('testName').value.trim();
+  saveDraftRaw(draft);
+}
+
+function addSentenceToDraft() {
+  const mine = document.getElementById('myText').value.trim();
+  const correct = document.getElementById('correctText').value.trim();
+  if (!mine || !correct) return;
+  draft.testName = document.getElementById('testName').value.trim();
+  draft.sentences.push({ mine, correct });
+  saveDraftRaw(draft);
+  clearSentenceInputs();
+  renderDraft();
+}
+
+function removeSentenceFromDraft(idx) {
+  draft.sentences.splice(idx, 1);
+  saveDraftRaw(draft);
+  renderDraft();
+}
+
+function clearDraft() {
+  if (draft.sentences.length && !confirm('작성 중인 답안을 모두 지울까요? (저장되지 않은 내용입니다)')) return;
+  draft = { testName: draft.testName, sentences: [], target: draft.target };
+  saveDraftRaw(draft);
+  renderDraft();
+}
+
+function updateTarget() {
+  const v = parseInt(document.getElementById('targetCount').value, 10);
+  draft.target = (v && v > 0) ? v : 30;
+  saveDraftRaw(draft);
+  renderDraft();
+}
+
+function renderDraft() {
+  const list = document.getElementById('draftList');
+  const countEl = document.getElementById('draftCount');
+  const target = draft.target || 30;
+  document.getElementById('targetCount').value = target;
+  const reached = draft.sentences.length >= target;
+  countEl.textContent = `(${draft.sentences.length} / ${target}문장)`;
+  countEl.classList.toggle('reached', reached);
+
+  if (draft.sentences.length === 0) {
+    list.innerHTML = '<div class="empty-msg">아직 추가된 문장이 없습니다.</div>';
+    return;
+  }
+
+  list.innerHTML = draft.sentences.map((s, idx) => `
+    <div class="sentence-item">
+      <div class="sentence-num">문장 ${idx + 1}</div>
+      <div class="sentence-row">
+        <div class="result-box">${renderDiffHtml(s.mine, s.correct)}</div>
+        <button class="btn danger small" onclick="removeSentenceFromDraft(${idx})">삭제</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function saveWholeEssay() {
+  const testName = document.getElementById('testName').value.trim();
+  if (!testName) {
+    alert('테스트 이름을 입력해주세요. (예: Cambridge 20 Test 1)');
+    return;
+  }
+  if (draft.sentences.length === 0) {
+    alert('추가된 문장이 없습니다.');
+    return;
+  }
+  const data = loadData();
+  if (!data[testName]) data[testName] = [];
+  data[testName].unshift({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    date: new Date().toISOString(),
+    sentences: draft.sentences.slice()
+  });
+  saveData(data);
+
+  draft = { testName: testName, sentences: [], target: draft.target };
+  saveDraftRaw(draft);
+  renderDraft();
+  renderHistory();
+  updateTestNameList();
+  alert(`"${testName}" 답안 (${data[testName][0].sentences.length}문장)이 저장되었습니다.`);
+}
+
+// ---------- history ----------
+function deleteEssay(testName, id) {
+  if (!confirm('이 답안 전체를 삭제할까요?')) return;
+  const data = loadData();
+  if (!data[testName]) return;
+  data[testName] = data[testName].filter(e => e.id !== id);
+  if (data[testName].length === 0) delete data[testName];
+  saveData(data);
+  renderHistory();
+  updateTestNameList();
+}
+
+function toggleGroup(el) { el.parentElement.classList.toggle('open'); }
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function updateTestNameList() {
+  const data = loadData();
+  const dl = document.getElementById('testNameList');
+  dl.innerHTML = Object.keys(data).map(name => `<option value="${escapeHtml(name)}">`).join('');
+}
+
+function renderHistory() {
+  const data = loadData();
+  const filter = document.getElementById('searchBox').value.trim().toLowerCase();
+  const container = document.getElementById('historyList');
+  const names = Object.keys(data).filter(n => n.toLowerCase().includes(filter));
+
+  if (names.length === 0) {
+    container.innerHTML = '<div class="empty-msg">저장된 답안이 없습니다.</div>';
+    return;
+  }
+
+  names.sort((a, b) => a.localeCompare(b));
+
+  container.innerHTML = names.map(name => {
+    const essays = data[name];
+    const essaysHtml = essays.map(essay => {
+      const sentences = essay.sentences || (essay.mine ? [{ mine: essay.mine, correct: essay.correct }] : []);
+      const sentencesHtml = sentences.map((s, idx) => `
+        <div class="sentence-item">
+          <div class="sentence-num">문장 ${idx + 1}</div>
+          <div class="result-box">${renderDiffHtml(s.mine, s.correct)}</div>
+        </div>
+      `).join('');
+
+      return `
+        <div class="essay-entry">
+          <div class="essay-entry-meta">
+            <span>${formatDate(essay.date)} · ${sentences.length}문장</span>
+            <button class="btn danger" onclick="deleteEssay('${escapeHtml(name).replace(/'/g, "\\'")}','${essay.id}')">삭제</button>
+          </div>
+          ${sentencesHtml}
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="group">
+        <div class="group-header" onclick="toggleGroup(this)">
+          <span>${escapeHtml(name)} <span class="count">(${essays.length}개 답안)</span></span>
+          <span class="arrow">▶</span>
+        </div>
+        <div class="group-body">${essaysHtml}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ---------- init ----------
+document.getElementById('testName').value = draft.testName || '';
+updateTestNameList();
+renderDraft();
+renderHistory();
+</script>
+</body>
+</html>
